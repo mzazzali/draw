@@ -1,5 +1,6 @@
 goog.provide('zee3.draw.core_test');
 goog.require('cljs.core');
+goog.require('zee3.draw.shapes');
 goog.require('zee3.draw.core');
 describe("testing the tests",(function (){
 return it("should be equal",(function (){
@@ -39,7 +40,7 @@ return expect(cljs.core.not_EQ_.call(null,null,zee3.draw.core.get_entity.call(nu
 describe("create rectangle",(function (){
 beforeEach((function (){
 zee3.draw.core.stage.call(null,cljs.core.ObjMap.fromObject(["\uFDD0'id","\uFDD0'x","\uFDD0'y","\uFDD0'width","\uFDD0'height"],{"\uFDD0'id":"test-stage2","\uFDD0'x":0,"\uFDD0'y":0,"\uFDD0'width":300,"\uFDD0'height":300}));
-return zee3.draw.core.rectangle.call(null,"test-stage2",cljs.core.ObjMap.fromObject(["\uFDD0'id","\uFDD0'x","\uFDD0'y","\uFDD0'width","\uFDD0'height"],{"\uFDD0'id":"my-rectangle","\uFDD0'x":10,"\uFDD0'y":10,"\uFDD0'width":300,"\uFDD0'height":300}));
+return zee3.draw.shapes.rectangle.call(null,"test-stage2",cljs.core.ObjMap.fromObject(["\uFDD0'id","\uFDD0'x","\uFDD0'y","\uFDD0'width","\uFDD0'height"],{"\uFDD0'id":"my-rectangle","\uFDD0'x":10,"\uFDD0'y":10,"\uFDD0'width":300,"\uFDD0'height":300}));
 }));
 afterEach((function (){
 var body = (document.getElementsByTagName("body")[0]);
@@ -52,7 +53,7 @@ return expect(cljs.core.not_EQ_.call(null,null,zee3.draw.core.get_entity.call(nu
 describe("create rounded-rectangle",(function (){
 beforeEach((function (){
 zee3.draw.core.stage.call(null,cljs.core.ObjMap.fromObject(["\uFDD0'id","\uFDD0'x","\uFDD0'y","\uFDD0'width","\uFDD0'height"],{"\uFDD0'id":"test-stage","\uFDD0'x":0,"\uFDD0'y":0,"\uFDD0'width":300,"\uFDD0'height":300}));
-return zee3.draw.core.rounded_rectangle.call(null,"test-stage",cljs.core.ObjMap.fromObject(["\uFDD0'id","\uFDD0'x","\uFDD0'y","\uFDD0'width","\uFDD0'height"],{"\uFDD0'id":"my-rounded-rectangle","\uFDD0'x":10,"\uFDD0'y":10,"\uFDD0'width":300,"\uFDD0'height":300}));
+return zee3.draw.shapes.rounded_rectangle.call(null,"test-stage",cljs.core.ObjMap.fromObject(["\uFDD0'id","\uFDD0'x","\uFDD0'y","\uFDD0'width","\uFDD0'height"],{"\uFDD0'id":"my-rounded-rectangle","\uFDD0'x":10,"\uFDD0'y":10,"\uFDD0'width":300,"\uFDD0'height":300}));
 }));
 afterEach((function (){
 var body = (document.getElementsByTagName("body")[0]);
@@ -65,7 +66,7 @@ return expect(cljs.core.not_EQ_.call(null,null,zee3.draw.core.get_entity.call(nu
 describe("create circle",(function (){
 beforeEach((function (){
 zee3.draw.core.stage.call(null,cljs.core.ObjMap.fromObject(["\uFDD0'id","\uFDD0'x","\uFDD0'y","\uFDD0'width","\uFDD0'height"],{"\uFDD0'id":"test-stage1","\uFDD0'x":0,"\uFDD0'y":0,"\uFDD0'width":300,"\uFDD0'height":300}));
-return zee3.draw.core.circle.call(null,"test-stage1",cljs.core.ObjMap.fromObject(["\uFDD0'id","\uFDD0'centerX","\uFDD0'centerY","\uFDD0'radius"],{"\uFDD0'id":"my-circle","\uFDD0'centerX":100,"\uFDD0'centerY":100,"\uFDD0'radius":10}));
+return zee3.draw.shapes.circle.call(null,"test-stage1",cljs.core.ObjMap.fromObject(["\uFDD0'id","\uFDD0'centerX","\uFDD0'centerY","\uFDD0'radius"],{"\uFDD0'id":"my-circle","\uFDD0'centerX":100,"\uFDD0'centerY":100,"\uFDD0'radius":10}));
 }));
 afterEach((function (){
 var body = (document.getElementsByTagName("body")[0]);
