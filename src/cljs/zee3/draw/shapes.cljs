@@ -10,28 +10,15 @@
 
 (defn rectangle [stage config]
   (let [mc (assoc (merge config/base config) :type "rectangle") 
-        {:keys [x y width height]} mc
-	ctx (get @contexts stage)]
-    (base ctx mc 
-      (fn [] (.fillRect ctx x y width height)))
+       ctx (get @contexts stage)]
+    (draw-rectangle ctx mc)
     (base-config stage mc)))
 
 (defn rounded-rectangle [stage config]
   (let [mc (assoc (merge config/rounded-rectangle config) :type "rounded-rectangle") 
-        {:keys [cornerRadius x y width height lineWidth fillStyle strokeStyle]} mc
         ctx (get @contexts stage)]
-    (base ctx mc (fn []
-      (.moveTo ctx (+ x cornerRadius) y)
-      (.lineTo ctx (- (+ x width) cornerRadius) y)
-      (.quadraticCurveTo ctx (+ x width) y (+ x width) y)
-      (.lineTo ctx (+ x width) (- (+ y height) cornerRadius))
-      (.quadraticCurveTo ctx (+ x width) (+ y height) (- (+ x width) cornerRadius) (+ y height))
-      (.lineTo ctx (+ x cornerRadius) (+ y height))
-      (.quadraticCurveTo ctx x (+ y height) x (- (+ y height) cornerRadius))
-      (.lineTo ctx x (+ y cornerRadius))
-      (.quadraticCurveTo ctx x y (+ x cornerRadius) y)))
+    (draw-rounded-rectangle ctx mc)
     (base-config stage mc)))
-
 
 (defn circle [stage config]
   (let [mc (assoc (merge config/circle config) :type "circle") ctx (get @contexts stage) ]
@@ -55,6 +42,24 @@
 
 (defn base-config [stage config]
   (swap! entities conj config))
+
+(defn draw-rectangle [ctx config]
+  (let [{:keys [x y width height]} config]
+    (base ctx mc 
+      (fn [] (.fillRect ctx x y width height)))))
+
+(defn draw-rounded-rectangle [ctx config]
+  (let [{:keys [cornerRadius x y width height lineWidth fillStyle strokeStyle]} config]
+    (base ctx mc (fn []
+      (.moveTo ctx (+ x cornerRadius) y)
+      (.lineTo ctx (- (+ x width) cornerRadius) y)
+      (.quadraticCurveTo ctx (+ x width) y (+ x width) y)
+      (.lineTo ctx (+ x width) (- (+ y height) cornerRadius))
+      (.quadraticCurveTo ctx (+ x width) (+ y height) (- (+ x width) cornerRadius) (+ y height))
+      (.lineTo ctx (+ x cornerRadius) (+ y height))
+      (.quadraticCurveTo ctx x (+ y height) x (- (+ y height) cornerRadius))
+      (.lineTo ctx x (+ y cornerRadius))
+      (.quadraticCurveTo ctx x y (+ x cornerRadius) y)))))
 
 (defn draw-circle [ctx config]
   (let [{:keys [centerX centerY radius]} config]
