@@ -358,6 +358,13 @@ goog.base = function(a, b, c) {
 goog.scope = function(a) {
   a.call(goog.global)
 };
+goog.debug = {};
+goog.debug.Error = function(a) {
+  Error.captureStackTrace ? Error.captureStackTrace(this, goog.debug.Error) : this.stack = Error().stack || "";
+  a && (this.message = String(a))
+};
+goog.inherits(goog.debug.Error, Error);
+goog.debug.Error.prototype.name = "CustomError";
 goog.string = {};
 goog.string.Unicode = {NBSP:"\u00a0"};
 goog.string.startsWith = function(a, b) {
@@ -687,13 +694,6 @@ goog.string.parseInt = function(a) {
   isFinite(a) && (a = String(a));
   return goog.isString(a) ? /^\s*-?0x/i.test(a) ? parseInt(a, 16) : parseInt(a, 10) : NaN
 };
-goog.debug = {};
-goog.debug.Error = function(a) {
-  Error.captureStackTrace ? Error.captureStackTrace(this, goog.debug.Error) : this.stack = Error().stack || "";
-  a && (this.message = String(a))
-};
-goog.inherits(goog.debug.Error, Error);
-goog.debug.Error.prototype.name = "CustomError";
 goog.asserts = {};
 goog.asserts.ENABLE_ASSERTS = goog.DEBUG;
 goog.asserts.AssertionError = function(a, b) {
@@ -5640,8 +5640,8 @@ cljs.core.apply = function() {
     b = cljs.core.list_STAR_.call(null, b, c, d, e);
     c = a.cljs$lang$maxFixedArity;
     return a.cljs$lang$applyTo ? (d = cljs.core.bounded_count.call(null, b, c + 1), d <= c ? cljs.core.apply_to.call(null, a, d, b) : a.cljs$lang$applyTo(b)) : a.apply(a, cljs.core.to_array.call(null, b))
-  }, f = function(a, b, c, d, e, g) {
-    b = cljs.core.cons.call(null, b, cljs.core.cons.call(null, c, cljs.core.cons.call(null, d, cljs.core.cons.call(null, e, cljs.core.spread.call(null, g)))));
+  }, f = function(a, b, c, d, e, f) {
+    b = cljs.core.cons.call(null, b, cljs.core.cons.call(null, c, cljs.core.cons.call(null, d, cljs.core.cons.call(null, e, cljs.core.spread.call(null, f)))));
     c = a.cljs$lang$maxFixedArity;
     return a.cljs$lang$applyTo ? (d = cljs.core.bounded_count.call(null, b, c + 1), d <= c ? cljs.core.apply_to.call(null, a, d, b) : a.cljs$lang$applyTo(b)) : a.apply(a, cljs.core.to_array.call(null, b))
   }, g = function(a, b, c, d, e, g) {
@@ -5830,9 +5830,9 @@ cljs.core.comp = function() {
     var c = null, d = function(c, d, e, f) {
       return a.call(null, cljs.core.apply.call(null, b, c, d, e, f))
     }, e = function(a, b, c, e) {
-      var g = null;
-      goog.isDef(e) && (g = cljs.core.array_seq(Array.prototype.slice.call(arguments, 3), 0));
-      return d.call(this, a, b, c, g)
+      var f = null;
+      goog.isDef(e) && (f = cljs.core.array_seq(Array.prototype.slice.call(arguments, 3), 0));
+      return d.call(this, a, b, c, f)
     };
     e.cljs$lang$maxFixedArity = 3;
     e.cljs$lang$applyTo = function(a) {
@@ -12704,32 +12704,14 @@ zee3.draw.shapes = {};
 zee3.draw.shapes.entities = cljs.core.atom.call(null, cljs.core.PersistentVector.EMPTY);
 zee3.draw.shapes.contexts = cljs.core.atom.call(null, cljs.core.ObjMap.EMPTY);
 zee3.draw.shapes.entity_id = cljs.core.atom.call(null, 0);
-zee3.draw.shapes.shape_map = cljs.core.ObjMap.fromObject(["\ufdd0'circle"], {"\ufdd0'circle":zee3.draw.shapes.draw_circle});
 zee3.draw.shapes.rectangle = function(a, b) {
-  var c = cljs.core.assoc.call(null, cljs.core.merge.call(null, zee3.draw.defaults.base, b), "\ufdd0'type", "rectangle"), d = cljs.core.seq_QMARK_.call(null, c) ? cljs.core.apply.call(null, cljs.core.hash_map, c) : c, e = cljs.core._lookup.call(null, d, "\ufdd0'height", null), f = cljs.core._lookup.call(null, d, "\ufdd0'width", null), g = cljs.core._lookup.call(null, d, "\ufdd0'y", null), h = cljs.core._lookup.call(null, d, "\ufdd0'x", null), i = cljs.core._lookup.call(null, cljs.core.deref.call(null, 
-  zee3.draw.shapes.contexts), a, null);
-  zee3.draw.shapes.base.call(null, i, c, function() {
-    return i.fillRect(h, g, f, e)
-  });
+  var c = cljs.core.assoc.call(null, cljs.core.merge.call(null, zee3.draw.defaults.base, b), "\ufdd0'type", "rectangle"), d = cljs.core._lookup.call(null, cljs.core.deref.call(null, zee3.draw.shapes.contexts), a, null);
+  zee3.draw.shapes.draw_rectangle.call(null, d, c);
   return zee3.draw.shapes.base_config.call(null, a, c)
 };
 zee3.draw.shapes.rounded_rectangle = function(a, b) {
-  var c = cljs.core.assoc.call(null, cljs.core.merge.call(null, zee3.draw.defaults.rounded_rectangle, b), "\ufdd0'type", "rounded-rectangle"), d = cljs.core.seq_QMARK_.call(null, c) ? cljs.core.apply.call(null, cljs.core.hash_map, c) : c;
-  cljs.core._lookup.call(null, d, "\ufdd0'strokeStyle", null);
-  cljs.core._lookup.call(null, d, "\ufdd0'fillStyle", null);
-  cljs.core._lookup.call(null, d, "\ufdd0'lineWidth", null);
-  var e = cljs.core._lookup.call(null, d, "\ufdd0'height", null), f = cljs.core._lookup.call(null, d, "\ufdd0'width", null), g = cljs.core._lookup.call(null, d, "\ufdd0'y", null), h = cljs.core._lookup.call(null, d, "\ufdd0'x", null), i = cljs.core._lookup.call(null, d, "\ufdd0'cornerRadius", null), j = cljs.core._lookup.call(null, cljs.core.deref.call(null, zee3.draw.shapes.contexts), a, null);
-  zee3.draw.shapes.base.call(null, j, c, function() {
-    j.moveTo(h + i, g);
-    j.lineTo(h + f - i, g);
-    j.quadraticCurveTo(h + f, g, h + f, g);
-    j.lineTo(h + f, g + e - i);
-    j.quadraticCurveTo(h + f, g + e, h + f - i, g + e);
-    j.lineTo(h + i, g + e);
-    j.quadraticCurveTo(h, g + e, h, g + e - i);
-    j.lineTo(h, g + i);
-    return j.quadraticCurveTo(h, g, h + i, g)
-  });
+  var c = cljs.core.assoc.call(null, cljs.core.merge.call(null, zee3.draw.defaults.rounded_rectangle, b), "\ufdd0'type", "rounded-rectangle"), d = cljs.core._lookup.call(null, cljs.core.deref.call(null, zee3.draw.shapes.contexts), a, null);
+  zee3.draw.shapes.draw_rounded_rectangle.call(null, d, c);
   return zee3.draw.shapes.base_config.call(null, a, c)
 };
 zee3.draw.shapes.circle = function(a, b) {
@@ -12743,7 +12725,26 @@ zee3.draw.shapes.text = function(a, b) {
   zee3.draw.shapes.draw_text.call(null, c);
   return zee3.draw.shapes.base_config.call(null, a, c)
 };
-zee3.draw.shapes.base = function(a, b, c) {
+zee3.draw.shapes.base_config = function(a, b) {
+  return cljs.core.swap_BANG_.call(null, zee3.draw.shapes.entities, cljs.core.conj, cljs.core.assoc.call(null, b, "\ufdd0'stage", a))
+};
+zee3.draw.shapes.apply_defaults = function() {
+  var a = function(a, b, e) {
+    return cljs.core.apply.call(null, cljs.core.assoc, cljs.core.merge.call(null, a, b), e)
+  }, b = function(b, d, e) {
+    var f = null;
+    goog.isDef(e) && (f = cljs.core.array_seq(Array.prototype.slice.call(arguments, 2), 0));
+    return a.call(this, b, d, f)
+  };
+  b.cljs$lang$maxFixedArity = 2;
+  b.cljs$lang$applyTo = function(b) {
+    var d = cljs.core.first(b), e = cljs.core.first(cljs.core.next(b)), b = cljs.core.rest(cljs.core.next(b));
+    return a(d, e, b)
+  };
+  b.cljs$lang$arity$variadic = a;
+  return b
+}();
+zee3.draw.shapes.draw_base = function(a, b, c) {
   var d = cljs.core.seq_QMARK_.call(null, b) ? cljs.core.apply.call(null, cljs.core.hash_map, b) : b, e = cljs.core._lookup.call(null, d, "\ufdd0'strokeStyle", null), f = cljs.core._lookup.call(null, d, "\ufdd0'fillStyle", null), d = cljs.core._lookup.call(null, d, "\ufdd0'lineWidth", null);
   a.beginPath();
   a.fillStyle = f;
@@ -12753,12 +12754,33 @@ zee3.draw.shapes.base = function(a, b, c) {
   a.fill();
   return a.stroke()
 };
-zee3.draw.shapes.base_config = function(a, b) {
-  return cljs.core.swap_BANG_.call(null, zee3.draw.shapes.entities, cljs.core.conj, b)
+zee3.draw.shapes.draw_rectangle = function(a, b) {
+  var c = cljs.core.seq_QMARK_.call(null, b) ? cljs.core.apply.call(null, cljs.core.hash_map, b) : b, d = cljs.core._lookup.call(null, c, "\ufdd0'height", null), e = cljs.core._lookup.call(null, c, "\ufdd0'width", null), f = cljs.core._lookup.call(null, c, "\ufdd0'y", null), g = cljs.core._lookup.call(null, c, "\ufdd0'x", null);
+  return zee3.draw.shapes.draw_base.call(null, a, b, function() {
+    return a.fillRect(g, f, e, d)
+  })
+};
+zee3.draw.shapes.draw_rounded_rectangle = function(a, b) {
+  var c = cljs.core.seq_QMARK_.call(null, b) ? cljs.core.apply.call(null, cljs.core.hash_map, b) : b;
+  cljs.core._lookup.call(null, c, "\ufdd0'strokeStyle", null);
+  cljs.core._lookup.call(null, c, "\ufdd0'fillStyle", null);
+  cljs.core._lookup.call(null, c, "\ufdd0'lineWidth", null);
+  var d = cljs.core._lookup.call(null, c, "\ufdd0'height", null), e = cljs.core._lookup.call(null, c, "\ufdd0'width", null), f = cljs.core._lookup.call(null, c, "\ufdd0'y", null), g = cljs.core._lookup.call(null, c, "\ufdd0'x", null), h = cljs.core._lookup.call(null, c, "\ufdd0'cornerRadius", null);
+  return zee3.draw.shapes.draw_base.call(null, a, b, function() {
+    a.moveTo(g + h, f);
+    a.lineTo(g + e - h, f);
+    a.quadraticCurveTo(g + e, f, g + e, f);
+    a.lineTo(g + e, f + d - h);
+    a.quadraticCurveTo(g + e, f + d, g + e - h, f + d);
+    a.lineTo(g + h, f + d);
+    a.quadraticCurveTo(g, f + d, g, f + d - h);
+    a.lineTo(g, f + h);
+    return a.quadraticCurveTo(g, f, g + h, f)
+  })
 };
 zee3.draw.shapes.draw_circle = function(a, b) {
   var c = cljs.core.seq_QMARK_.call(null, b) ? cljs.core.apply.call(null, cljs.core.hash_map, b) : b, d = cljs.core._lookup.call(null, c, "\ufdd0'radius", null), e = cljs.core._lookup.call(null, c, "\ufdd0'centerY", null), f = cljs.core._lookup.call(null, c, "\ufdd0'centerX", null);
-  return zee3.draw.shapes.base.call(null, a, b, function() {
+  return zee3.draw.shapes.draw_base.call(null, a, b, function() {
     return a.arc(f, e, d, 0, 2 * Math.PI, !1)
   })
 };
@@ -12768,7 +12790,7 @@ zee3.draw.shapes.draw_text = function(a, b) {
   cljs.core._lookup.call(null, c, "\ufdd0'centerY", null);
   cljs.core._lookup.call(null, c, "\ufdd0'centerX", null);
   var d = cljs.core._lookup.call(null, cljs.core.deref.call(null, zee3.draw.shapes.contexts), zee3.draw.shapes.stage, null);
-  return zee3.draw.shapes.base.call(null, d, b, function() {
+  return zee3.draw.shapes.draw_base.call(null, d, b, function() {
     d.fillStyle = zee3.draw.shapes.fillStyle;
     d.font = zee3.draw.shapes.font;
     d.textBaseline = zee3.draw.shapes.textBaseline;
@@ -12805,7 +12827,7 @@ zee3.draw.core.setupEvents = function(a) {
   })
 };
 zee3.draw.core.handle_mouse_up = function(a) {
-  for(var b = a.x, c = a.y, a = cljs.core.filter.call(null, function(a) {
+  for(var b = a.clientX, c = a.clientY, a = cljs.core.filter.call(null, function(a) {
     var d = cljs.core.not_EQ_.call(null, "stage", cljs.core._lookup.call(null, a, "\ufdd0'type", null));
     return d ? (d = zee3.draw.core.intersects.call(null, a, cljs.core.ObjMap.fromObject(["\ufdd0'x", "\ufdd0'y"], {"\ufdd0'x":b, "\ufdd0'y":c})), cljs.core.truth_(d) ? cljs.core.contains_QMARK_.call(null, a, "\ufdd0'mouseup") : d) : d
   }, cljs.core.deref.call(null, zee3.draw.shapes.entities)), a = cljs.core.seq.call(null, a);;) {
@@ -12868,7 +12890,10 @@ hello_clojurescript.cnt = cljs.core.atom.call(null, 0);
 hello_clojurescript.handle_click = function() {
   zee3.draw.core.stage.call(null, cljs.core.ObjMap.fromObject(["\ufdd0'id", "\ufdd0'x", "\ufdd0'y", "\ufdd0'width", "\ufdd0'height"], {"\ufdd0'id":[cljs.core.str("myStage"), cljs.core.str(cljs.core.swap_BANG_.call(null, hello_clojurescript.cnt, cljs.core.inc))].join(""), "\ufdd0'x":0, "\ufdd0'y":0, "\ufdd0'width":300, "\ufdd0'height":300}));
   var a = [cljs.core.str("myStage"), cljs.core.str(cljs.core.deref.call(null, hello_clojurescript.cnt))].join("");
-  return zee3.draw.core.rectangle.call(null, a, cljs.core.ObjMap.fromObject(["\ufdd0'mouseup"], {"\ufdd0'mouseup":function() {
+  zee3.draw.shapes.rectangle.call(null, a, cljs.core.ObjMap.fromObject(["\ufdd0'mouseup"], {"\ufdd0'mouseup":function() {
+    return alert("test")
+  }}));
+  return zee3.draw.shapes.circle.call(null, a, cljs.core.ObjMap.fromObject(["\ufdd0'centerX", "\ufdd0'centerY", "\ufdd0'mouseover"], {"\ufdd0'centerX":200, "\ufdd0'centerY":200, "\ufdd0'mouseover":function() {
     return alert("test")
   }}))
 };

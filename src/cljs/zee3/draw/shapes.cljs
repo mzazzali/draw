@@ -5,9 +5,7 @@
 (def contexts (atom {}))
 (def entity-id (atom 0))
 
-(def shape-map 
-     {:circle draw-circle})
-
+;;entity functions
 (defn rectangle [stage config]
   (let [mc (assoc (merge config/base config) :type "rectangle") 
        ctx (get @contexts stage)]
@@ -30,7 +28,14 @@
     (draw-text mc)
     (base-config stage mc)))
 
-(defn base [ctx config f]
+(defn base-config [stage config]
+  (swap! entities conj (assoc config :stage stage)))
+
+(defn apply-defaults [default config & rest]
+  (apply assoc (merge default config) rest))
+
+;;rendering functions
+(defn draw-base [ctx config f]
 	(let [{:keys [lineWidth fillStyle strokeStyle]} config ]
 		(.beginPath ctx)
 		(set! (.-fillStyle ctx) fillStyle)
@@ -40,17 +45,15 @@
 		(.fill ctx)
 		(.stroke ctx)))
 
-(defn base-config [stage config]
-  (swap! entities conj config))
 
 (defn draw-rectangle [ctx config]
   (let [{:keys [x y width height]} config]
-    (base ctx mc 
+    (draw-base ctx config 
       (fn [] (.fillRect ctx x y width height)))))
 
 (defn draw-rounded-rectangle [ctx config]
   (let [{:keys [cornerRadius x y width height lineWidth fillStyle strokeStyle]} config]
-    (base ctx mc (fn []
+    (draw-base ctx config (fn []
       (.moveTo ctx (+ x cornerRadius) y)
       (.lineTo ctx (- (+ x width) cornerRadius) y)
       (.quadraticCurveTo ctx (+ x width) y (+ x width) y)
@@ -63,15 +66,17 @@
 
 (defn draw-circle [ctx config]
   (let [{:keys [centerX centerY radius]} config]
-    (base ctx config (fn []
+    (draw-base ctx config (fn []
     (.arc ctx centerX centerY radius 0 (* 2 (.-PI js/Math)) false )))))
       
 
 (defn draw-text [ctx config]
   (let [{:keys [centerX centerY radius]} mc 
         ctx (get @contexts stage)]
-  (base ctx config (fn []
+  (draw-base ctx config (fn []
     (set! (.-fillStyle ctx) fillStyle)
     (set! (.-font ctx) font) 
     (set! (.-textBaseline ctx) textBaseline)
     (.fillText ctx text)))))
+
+  

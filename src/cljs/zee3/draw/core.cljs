@@ -24,7 +24,7 @@
       (.addEventListener stage "touchmove" (fn[event])))
 
 (defn handle-mouse-up [event]
-      (let [x (.-x event) y (.-y event)]
+      (let [x (.-clientX event) y (.-clientY event)]
       	(let [k (filter #(and (not= "stage" (get % :type)) (intersects % {:x x :y y}) (contains? % :mouseup)) @shape/entities)]
 		(doseq [{:keys [mouseup]} k] (mouseup)))))
 

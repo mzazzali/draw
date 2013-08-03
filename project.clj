@@ -18,7 +18,7 @@
       :test {
              :source-paths ["test/cljs"]
              :compiler {:output-to "resources/private/js/unit-test.js"
-                  :optimizations :whitespace
+                  :optimizations :simple
                   :pretty-print true}}}}
   :test-commands
       ; Test command for running the unit tests in "test-cljs" (see below).
