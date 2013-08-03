@@ -16,26 +16,31 @@
 
 
 (defn setupEvents [stage]
-      (.addEventListener stage "mouseup" handle-mouse-up)
-      (.addEventListener stage "mousemove" (fn[event]))
+      (.addEventListener stage "mouseup" handle-mouseup)
+      (.addEventListener stage "mousemove" handle-mousemove)
       (.addEventListener stage "mousedown" (fn[event]))
       (.addEventListener stage "touchstart" (fn[event]))
       (.addEventListener stage "touchend" handle-mouse-up)
       (.addEventListener stage "touchmove" (fn[event])))
 
-(defn handle-mouse-up [event]
+(defn handle-mouseup [event]
       (let [x (.-clientX event) y (.-clientY event)]
       	(let [k (filter #(and (not= "stage" (get % :type)) (intersects % {:x x :y y}) (contains? % :mouseup)) @shape/entities)]
 		(doseq [{:keys [mouseup]} k] (mouseup)))))
+
+(defn handle-mousemove [event]
+  (let [x (.-clientX event) y (.-clientY event)]
+    (let [k (filter #(and (not= "stage" (get % :type)) (intersects % {:x x :y y}) (contains? % :mousemove)) @shape/entities)]
+		(doseq [{:keys [mousemove]} k] (mousemove)))))
 
 (defn mouse-down [entities, point] 
 	(let [k (filter #(and (intersects % point) (contains? % :mouse-down)) @shape/entities)]
 		(map #((get % :mouse-down)) k)))
 
 (defn intersects [shape point]
-	(if (contains? shape :width)
-		(intersects-rectangle shape (absolute-point (get shape :stage) point)
-		(intersects-circle shape (absolute-point (get shape :stage) point)))))
+	(if (= (get shape :type) "circle" )
+		(intersects-circle shape (absolute-point (get shape :stage) point))
+		(intersects-rectangle shape (absolute-point (get shape :stage) point))))
 
 (defn intersects-circle [shape point]
 	(let [{:keys [centerX centerY radius]} shape {:keys [x y]} point]

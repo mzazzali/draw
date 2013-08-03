@@ -12811,10 +12811,8 @@ zee3.draw.core.stage = function(a) {
   return a
 };
 zee3.draw.core.setupEvents = function(a) {
-  a.addEventListener("mouseup", zee3.draw.core.handle_mouse_up);
-  a.addEventListener("mousemove", function() {
-    return null
-  });
+  a.addEventListener("mouseup", zee3.draw.core.handle_mouseup);
+  a.addEventListener("mousemove", zee3.draw.core.handle_mousemove);
   a.addEventListener("mousedown", function() {
     return null
   });
@@ -12826,7 +12824,7 @@ zee3.draw.core.setupEvents = function(a) {
     return null
   })
 };
-zee3.draw.core.handle_mouse_up = function(a) {
+zee3.draw.core.handle_mouseup = function(a) {
   for(var b = a.clientX, c = a.clientY, a = cljs.core.filter.call(null, function(a) {
     var d = cljs.core.not_EQ_.call(null, "stage", cljs.core._lookup.call(null, a, "\ufdd0'type", null));
     return d ? (d = zee3.draw.core.intersects.call(null, a, cljs.core.ObjMap.fromObject(["\ufdd0'x", "\ufdd0'y"], {"\ufdd0'x":b, "\ufdd0'y":c})), cljs.core.truth_(d) ? cljs.core.contains_QMARK_.call(null, a, "\ufdd0'mouseup") : d) : d
@@ -12834,6 +12832,20 @@ zee3.draw.core.handle_mouse_up = function(a) {
     if(a) {
       var d = cljs.core.first.call(null, a), d = cljs.core.seq_QMARK_.call(null, d) ? cljs.core.apply.call(null, cljs.core.hash_map, d) : d;
       cljs.core._lookup.call(null, d, "\ufdd0'mouseup", null).call(null);
+      a = cljs.core.next.call(null, a)
+    }else {
+      return null
+    }
+  }
+};
+zee3.draw.core.handle_mousemove = function(a) {
+  for(var b = a.clientX, c = a.clientY, a = cljs.core.filter.call(null, function(a) {
+    var d = cljs.core.not_EQ_.call(null, "stage", cljs.core._lookup.call(null, a, "\ufdd0'type", null));
+    return d ? (d = zee3.draw.core.intersects.call(null, a, cljs.core.ObjMap.fromObject(["\ufdd0'x", "\ufdd0'y"], {"\ufdd0'x":b, "\ufdd0'y":c})), cljs.core.truth_(d) ? cljs.core.contains_QMARK_.call(null, a, "\ufdd0'mousemove") : d) : d
+  }, cljs.core.deref.call(null, zee3.draw.shapes.entities)), a = cljs.core.seq.call(null, a);;) {
+    if(a) {
+      var d = cljs.core.first.call(null, a), d = cljs.core.seq_QMARK_.call(null, d) ? cljs.core.apply.call(null, cljs.core.hash_map, d) : d;
+      cljs.core._lookup.call(null, d, "\ufdd0'mousemove", null).call(null);
       a = cljs.core.next.call(null, a)
     }else {
       return null
@@ -12850,7 +12862,7 @@ zee3.draw.core.mouse_down = function(a, b) {
   }, c)
 };
 zee3.draw.core.intersects = function(a, b) {
-  return cljs.core.contains_QMARK_.call(null, a, "\ufdd0'width") ? zee3.draw.core.intersects_rectangle.call(null, a, zee3.draw.core.absolute_point.call(null, cljs.core._lookup.call(null, a, "\ufdd0'stage", null), b), zee3.draw.core.intersects_circle.call(null, a, zee3.draw.core.absolute_point.call(null, cljs.core._lookup.call(null, a, "\ufdd0'stage", null), b))) : null
+  return cljs.core._EQ_.call(null, cljs.core._lookup.call(null, a, "\ufdd0'type", null), "circle") ? zee3.draw.core.intersects_circle.call(null, a, zee3.draw.core.absolute_point.call(null, cljs.core._lookup.call(null, a, "\ufdd0'stage", null), b)) : zee3.draw.core.intersects_rectangle.call(null, a, zee3.draw.core.absolute_point.call(null, cljs.core._lookup.call(null, a, "\ufdd0'stage", null), b))
 };
 zee3.draw.core.intersects_circle = function(a, b) {
   var c = cljs.core.seq_QMARK_.call(null, a) ? cljs.core.apply.call(null, cljs.core.hash_map, a) : a, d = cljs.core._lookup.call(null, c, "\ufdd0'radius", null), e = cljs.core._lookup.call(null, c, "\ufdd0'centerY", null), f = cljs.core._lookup.call(null, c, "\ufdd0'centerX", null), g = cljs.core.seq_QMARK_.call(null, b) ? cljs.core.apply.call(null, cljs.core.hash_map, b) : b, c = cljs.core._lookup.call(null, g, "\ufdd0'y", null), f = cljs.core._lookup.call(null, g, "\ufdd0'x", null) - f, e = c - 
@@ -12888,12 +12900,15 @@ zee3.draw.core.get_entity = function(a) {
 var hello_clojurescript = {};
 hello_clojurescript.cnt = cljs.core.atom.call(null, 0);
 hello_clojurescript.handle_click = function() {
-  zee3.draw.core.stage.call(null, cljs.core.ObjMap.fromObject(["\ufdd0'id", "\ufdd0'x", "\ufdd0'y", "\ufdd0'width", "\ufdd0'height"], {"\ufdd0'id":[cljs.core.str("myStage"), cljs.core.str(cljs.core.swap_BANG_.call(null, hello_clojurescript.cnt, cljs.core.inc))].join(""), "\ufdd0'x":0, "\ufdd0'y":0, "\ufdd0'width":300, "\ufdd0'height":300}));
+  zee3.draw.core.stage.call(null, cljs.core.ObjMap.fromObject(["\ufdd0'id", "\ufdd0'x", "\ufdd0'y", "\ufdd0'width", "\ufdd0'height"], {"\ufdd0'id":[cljs.core.str("myStage"), cljs.core.str(cljs.core.swap_BANG_.call(null, hello_clojurescript.cnt, cljs.core.inc))].join(""), "\ufdd0'x":0, "\ufdd0'y":0, "\ufdd0'width":600, "\ufdd0'height":300}));
   var a = [cljs.core.str("myStage"), cljs.core.str(cljs.core.deref.call(null, hello_clojurescript.cnt))].join("");
   zee3.draw.shapes.rectangle.call(null, a, cljs.core.ObjMap.fromObject(["\ufdd0'mouseup"], {"\ufdd0'mouseup":function() {
-    return alert("test")
+    return alert("test rectangle")
   }}));
-  return zee3.draw.shapes.circle.call(null, a, cljs.core.ObjMap.fromObject(["\ufdd0'centerX", "\ufdd0'centerY", "\ufdd0'mouseover"], {"\ufdd0'centerX":200, "\ufdd0'centerY":200, "\ufdd0'mouseover":function() {
+  zee3.draw.shapes.circle.call(null, a, cljs.core.ObjMap.fromObject(["\ufdd0'centerX", "\ufdd0'centerY", "\ufdd0'mouseup"], {"\ufdd0'centerX":500, "\ufdd0'centerY":200, "\ufdd0'mouseup":function() {
+    return alert("test circle")
+  }}));
+  return zee3.draw.shapes.circle.call(null, a, cljs.core.ObjMap.fromObject(["\ufdd0'centerX", "\ufdd0'centerY", "\ufdd0'mousemove"], {"\ufdd0'centerX":200, "\ufdd0'centerY":200, "\ufdd0'mousemove":function() {
     return alert("test")
   }}))
 };
