@@ -14,7 +14,7 @@ zee3.draw.shapes.circle.call(null,stage,cljs.core.ObjMap.fromObject(["\uFDD0'cen
 return alert("test circle");
 })}));
 return zee3.draw.shapes.circle.call(null,stage,cljs.core.ObjMap.fromObject(["\uFDD0'centerX","\uFDD0'centerY","\uFDD0'mousemove"],{"\uFDD0'centerX":200,"\uFDD0'centerY":200,"\uFDD0'mousemove":(function (){
-return alert("test");
+return alert("test mouseover circle");
 })}));
 });
 hello_clojurescript.clickable = document.getElementById("clickable");

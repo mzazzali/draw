@@ -9,7 +9,7 @@
   (let [stage (str "myStage" @cnt)]
     (shape/rectangle stage {:mouseup (fn [] (js/alert "test rectangle"))})
     (shape/circle stage {:centerX 500 :centerY 200 :mouseup (fn [] (js/alert "test circle"))})
-    (shape/circle stage {:centerX 200 :centerY 200 :mousemove (fn [] (js/alert "test"))})
+    (shape/circle stage {:centerX 200 :centerY 200 :mousemove (fn [] (js/alert "test mouseover circle"))})
 ))
 
 (def clickable (.getElementById js/document "clickable"))

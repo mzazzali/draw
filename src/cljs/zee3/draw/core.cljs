@@ -58,12 +58,24 @@
       	  (true)
 	  (false)))  
 
-(defn absolute-point [stage point]
+(defn absolute-point-old [stage point]
       (let [{:keys [ref]} (first (filter #(and (= stage (get % :id)) (= "stage" (get % :type))) @shape/entities)) {:keys [x y]} point]
       	   (loop [obj ref cl 0 ct 0]
   	   	 (if (.-offsetParent obj)
     		     (recur (.-offsetParent obj) (+ (.-offsetLeft obj) cl) (+ (.-offsetTop obj) ct))
 		     {:x (- x (.-offsetLeft obj) cl) :y (- y (.-offsetTop obj) ct)}))))
+
+(defn absolute-point [stage point]
+  (let [{:keys [ref]} (first (filter #(and (= stage (get % :id)) (= "stage" (get % :type))) @shape/entities))         {:keys [x y]} point
+        box (.getBoundingClientRect ref)
+        docElement (.-documentElement js/document)
+        clientTop (.-clientTop docElement )
+        clientLeft (.-clientLeft docElement )
+        top (- (.-top box) clientTop)
+        left (- (.-left box) clientLeft)]
+     {:y (- y (.round js/Math top)) 
+       :x  (- x (.round js/Math left))}))
+
 
 (defn entity-id [config]
       (if (contains? :id config)
