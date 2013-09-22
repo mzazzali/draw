@@ -358,6 +358,13 @@ goog.base = function(a, b, c) {
 goog.scope = function(a) {
   a.call(goog.global)
 };
+goog.debug = {};
+goog.debug.Error = function(a) {
+  Error.captureStackTrace ? Error.captureStackTrace(this, goog.debug.Error) : this.stack = Error().stack || "";
+  a && (this.message = String(a))
+};
+goog.inherits(goog.debug.Error, Error);
+goog.debug.Error.prototype.name = "CustomError";
 goog.string = {};
 goog.string.Unicode = {NBSP:"\u00a0"};
 goog.string.startsWith = function(a, b) {
@@ -687,13 +694,6 @@ goog.string.parseInt = function(a) {
   isFinite(a) && (a = String(a));
   return goog.isString(a) ? /^\s*-?0x/i.test(a) ? parseInt(a, 16) : parseInt(a, 10) : NaN
 };
-goog.debug = {};
-goog.debug.Error = function(a) {
-  Error.captureStackTrace ? Error.captureStackTrace(this, goog.debug.Error) : this.stack = Error().stack || "";
-  a && (this.message = String(a))
-};
-goog.inherits(goog.debug.Error, Error);
-goog.debug.Error.prototype.name = "CustomError";
 goog.asserts = {};
 goog.asserts.ENABLE_ASSERTS = goog.DEBUG;
 goog.asserts.AssertionError = function(a, b) {
@@ -2730,23 +2730,23 @@ cljs.core._hash["boolean"] = function(a) {
 cljs.core.IWithMeta["function"] = !0;
 cljs.core._with_meta["function"] = function(a, b) {
   return cljs.core.with_meta.call(null, function() {
-    if(void 0 === cljs.core.t3845) {
-      cljs.core.t3845 = {};
-      cljs.core.t3845 = function(a, b, c) {
+    if(void 0 === cljs.core.t2881) {
+      cljs.core.t2881 = {};
+      cljs.core.t2881 = function(a, b, c) {
         this.meta = a;
         this.f = b;
-        this.meta3846 = c;
+        this.meta2882 = c;
         this.cljs$lang$protocol_mask$partition1$ = 0;
         this.cljs$lang$protocol_mask$partition0$ = 393217
       };
-      cljs.core.t3845.cljs$lang$type = !0;
-      cljs.core.t3845.cljs$lang$ctorPrSeq = function() {
-        return cljs.core.list.call(null, "cljs.core/t3845")
+      cljs.core.t2881.cljs$lang$type = !0;
+      cljs.core.t2881.cljs$lang$ctorPrSeq = function() {
+        return cljs.core.list.call(null, "cljs.core/t2881")
       };
-      cljs.core.t3845.cljs$lang$ctorPrWriter = function(a, b) {
-        return cljs.core._write.call(null, b, "cljs.core/t3845")
+      cljs.core.t2881.cljs$lang$ctorPrWriter = function(a, b) {
+        return cljs.core._write.call(null, b, "cljs.core/t2881")
       };
-      var c = cljs.core.t3845.prototype, d = function(a, b) {
+      var c = cljs.core.t2881.prototype, d = function(a, b) {
         return cljs.core.apply.call(null, a.f, b)
       }, e = function(a, b) {
         var a = this, c = null;
@@ -2760,19 +2760,19 @@ cljs.core._with_meta["function"] = function(a, b) {
       };
       e.cljs$lang$arity$variadic = d;
       c.call = e;
-      cljs.core.t3845.prototype.apply = function(a, b) {
+      cljs.core.t2881.prototype.apply = function(a, b) {
         a = this;
         return a.call.apply(a, [a].concat(b.slice()))
       };
-      cljs.core.t3845.prototype.cljs$core$Fn$ = !0;
-      cljs.core.t3845.prototype.cljs$core$IMeta$_meta$arity$1 = function() {
-        return this.meta3846
+      cljs.core.t2881.prototype.cljs$core$Fn$ = !0;
+      cljs.core.t2881.prototype.cljs$core$IMeta$_meta$arity$1 = function() {
+        return this.meta2882
       };
-      cljs.core.t3845.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = function(a, b) {
-        return new cljs.core.t3845(this.meta, this.f, b)
+      cljs.core.t2881.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = function(a, b) {
+        return new cljs.core.t2881(this.meta, this.f, b)
       }
     }
-    return new cljs.core.t3845(b, a, null)
+    return new cljs.core.t2881(b, a, null)
   }(), b)
 };
 cljs.core.IMeta["function"] = !0;
@@ -12904,75 +12904,22 @@ zee3.draw.core.get_entity = function(a) {
     return cljs.core._EQ_.call(null, a, cljs.core._lookup.call(null, b, "\ufdd0'id", null))
   }, cljs.core.deref.call(null, zee3.draw.shapes.entities)))
 };
-zee3.draw.core_test = {};
-describe("testing the tests", function() {
-  return it("should be equal", function() {
-    return expect(cljs.core._EQ_.call(null, 1, 1)).toBeTruthy()
-  })
-});
-describe("test rectangle intersection", function() {
-  it("should intersect", function() {
-    return expect(cljs.core._EQ_.call(null, !0, zee3.draw.core.intersects_rectangle.call(null, cljs.core.ObjMap.fromObject(["\ufdd0'x", "\ufdd0'y", "\ufdd0'width", "\ufdd0'height"], {"\ufdd0'x":10, "\ufdd0'y":10, "\ufdd0'width":100, "\ufdd0'height":100}), cljs.core.ObjMap.fromObject(["\ufdd0'x", "\ufdd0'y"], {"\ufdd0'x":90, "\ufdd0'y":90})))).toBeTruthy()
-  });
-  return it("should not intersect", function() {
-    return expect(cljs.core._EQ_.call(null, !1, zee3.draw.core.intersects_rectangle.call(null, cljs.core.ObjMap.fromObject(["\ufdd0'x", "\ufdd0'y", "\ufdd0'width", "\ufdd0'height"], {"\ufdd0'x":10, "\ufdd0'y":10, "\ufdd0'width":100, "\ufdd0'height":100}), cljs.core.ObjMap.fromObject(["\ufdd0'x", "\ufdd0'y"], {"\ufdd0'x":120, "\ufdd0'y":120})))).toBeTruthy()
-  })
-});
-describe("test circle intersection", function() {
-  it("should intersect", function() {
-    return expect(cljs.core._EQ_.call(null, !0, zee3.draw.core.intersects_circle.call(null, cljs.core.ObjMap.fromObject(["\ufdd0'centerX", "\ufdd0'centerY", "\ufdd0'radius"], {"\ufdd0'centerX":30, "\ufdd0'centerY":30, "\ufdd0'radius":20}), cljs.core.ObjMap.fromObject(["\ufdd0'x", "\ufdd0'y"], {"\ufdd0'x":30, "\ufdd0'y":30})))).toBeTruthy()
-  });
-  return it("should not intersect", function() {
-    return expect(cljs.core._EQ_.call(null, !1, zee3.draw.core.intersects_circle.call(null, cljs.core.ObjMap.fromObject(["\ufdd0'centerX", "\ufdd0'centerY", "\ufdd0'radius"], {"\ufdd0'centerX":30, "\ufdd0'centerY":30, "\ufdd0'radius":20}), cljs.core.ObjMap.fromObject(["\ufdd0'x", "\ufdd0'y"], {"\ufdd0'x":120, "\ufdd0'y":120})))).toBeTruthy()
-  })
-});
-describe("create stage", function() {
-  beforeEach(function() {
-    return zee3.draw.core.stage.call(null, cljs.core.ObjMap.fromObject(["\ufdd0'id", "\ufdd0'x", "\ufdd0'y", "\ufdd0'width", "\ufdd0'height"], {"\ufdd0'id":"test-stage", "\ufdd0'x":0, "\ufdd0'y":0, "\ufdd0'width":300, "\ufdd0'height":300}))
-  });
-  afterEach(function() {
-    return document.getElementsByTagName("body")[0].removeChild(document.getElementById("test-stage"))
-  });
-  it("test that the stage was created", function() {
-    return expect(cljs.core.not_EQ_.call(null, null, document.getElementById("test-stage"))).toBeTruthy()
-  });
-  return it("test that the entity was created", function() {
-    return expect(cljs.core.not_EQ_.call(null, null, zee3.draw.core.get_entity.call(null, "test-stage"))).toBeTruthy()
-  })
-});
-describe("create rectangle", function() {
-  beforeEach(function() {
-    zee3.draw.core.stage.call(null, cljs.core.ObjMap.fromObject(["\ufdd0'id", "\ufdd0'x", "\ufdd0'y", "\ufdd0'width", "\ufdd0'height"], {"\ufdd0'id":"test-stage2", "\ufdd0'x":0, "\ufdd0'y":0, "\ufdd0'width":300, "\ufdd0'height":300}));
-    return zee3.draw.shapes.rectangle.call(null, "test-stage2", cljs.core.ObjMap.fromObject(["\ufdd0'id", "\ufdd0'x", "\ufdd0'y", "\ufdd0'width", "\ufdd0'height"], {"\ufdd0'id":"my-rectangle", "\ufdd0'x":10, "\ufdd0'y":10, "\ufdd0'width":300, "\ufdd0'height":300}))
-  });
-  afterEach(function() {
-    return document.getElementsByTagName("body")[0].removeChild(document.getElementById("test-stage2"))
-  });
-  return it("test that the rectangle was created", function() {
-    return expect(cljs.core.not_EQ_.call(null, null, zee3.draw.core.get_entity.call(null, "my-rectangle"))).toBeTruthy()
-  })
-});
-describe("create rounded-rectangle", function() {
-  beforeEach(function() {
-    zee3.draw.core.stage.call(null, cljs.core.ObjMap.fromObject(["\ufdd0'id", "\ufdd0'x", "\ufdd0'y", "\ufdd0'width", "\ufdd0'height"], {"\ufdd0'id":"test-stage", "\ufdd0'x":0, "\ufdd0'y":0, "\ufdd0'width":300, "\ufdd0'height":300}));
-    return zee3.draw.shapes.rounded_rectangle.call(null, "test-stage", cljs.core.ObjMap.fromObject(["\ufdd0'id", "\ufdd0'x", "\ufdd0'y", "\ufdd0'width", "\ufdd0'height"], {"\ufdd0'id":"my-rounded-rectangle", "\ufdd0'x":10, "\ufdd0'y":10, "\ufdd0'width":300, "\ufdd0'height":300}))
-  });
-  afterEach(function() {
-    return document.getElementsByTagName("body")[0].removeChild(document.getElementById("test-stage"))
-  });
-  return it("test that the rounded-rectangle was created", function() {
-    return expect(cljs.core.not_EQ_.call(null, null, zee3.draw.core.get_entity.call(null, "my-rounded-rectangle"))).toBeTruthy()
-  })
-});
-describe("create circle", function() {
-  beforeEach(function() {
-    zee3.draw.core.stage.call(null, cljs.core.ObjMap.fromObject(["\ufdd0'id", "\ufdd0'x", "\ufdd0'y", "\ufdd0'width", "\ufdd0'height"], {"\ufdd0'id":"test-stage1", "\ufdd0'x":0, "\ufdd0'y":0, "\ufdd0'width":300, "\ufdd0'height":300}));
-    return zee3.draw.shapes.circle.call(null, "test-stage1", cljs.core.ObjMap.fromObject(["\ufdd0'id", "\ufdd0'centerX", "\ufdd0'centerY", "\ufdd0'radius"], {"\ufdd0'id":"my-circle", "\ufdd0'centerX":100, "\ufdd0'centerY":100, "\ufdd0'radius":10}))
-  });
-  afterEach(function() {
-    return document.getElementsByTagName("body")[0].removeChild(document.getElementById("test-stage1"))
-  });
-  return it("test that the circle was created", function() {
-    return expect(cljs.core.not_EQ_.call(null, null, zee3.draw.core.get_entity.call(null, "my-circle"))).toBeTruthy()
-  })
-});
+zee3.draw.draw_selenium_jstest = {};
+zee3.draw.draw_selenium_jstest.setup_selenium_tests = function() {
+  zee3.draw.core.stage.call(null, cljs.core.ObjMap.fromObject(["\ufdd0'id", "\ufdd0'x", "\ufdd0'y", "\ufdd0'width", "\ufdd0'height"], {"\ufdd0'id":"stage", "\ufdd0'x":0, "\ufdd0'y":0, "\ufdd0'width":600, "\ufdd0'height":400}));
+  zee3.draw.draw_selenium_jstest.setup_circle.call(null);
+  return zee3.draw.draw_selenium_jstest.setup_rectangle.call(null)
+};
+zee3.draw.draw_selenium_jstest.set_output = function(a) {
+  return document.getElementById("test_output").innerHTML = a
+};
+zee3.draw.draw_selenium_jstest.setup_circle = function() {
+  return zee3.draw.shapes.circle.call(null, "stage", cljs.core.ObjMap.fromObject("\ufdd0'id \ufdd0'centerX \ufdd0'centerY \ufdd0'radius \ufdd0'fillStyle \ufdd0'mouseup".split(" "), {"\ufdd0'id":"crcl1", "\ufdd0'centerX":50, "\ufdd0'centerY":50, "\ufdd0'radius":50, "\ufdd0'fillStyle":"#6666CC", "\ufdd0'mouseup":function() {
+    return zee3.draw.draw_selenium_jstest.set_output.call(null, "crcl1")
+  }}))
+};
+zee3.draw.draw_selenium_jstest.setup_rectangle = function() {
+  return zee3.draw.shapes.rectangle.call(null, "stage", cljs.core.ObjMap.fromObject("\ufdd0'id \ufdd0'x \ufdd0'y \ufdd0'width \ufdd0'height \ufdd0'fillStyle \ufdd0'mouseup".split(" "), {"\ufdd0'id":"rect1", "\ufdd0'x":100, "\ufdd0'y":0, "\ufdd0'width":50, "\ufdd0'height":50, "\ufdd0'fillStyle":"#6666CC", "\ufdd0'mouseup":function() {
+    return zee3.draw.draw_selenium_jstest.set_output.call(null, "rect1")
+  }}))
+};

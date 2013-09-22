@@ -358,13 +358,6 @@ goog.base = function(a, b, c) {
 goog.scope = function(a) {
   a.call(goog.global)
 };
-goog.debug = {};
-goog.debug.Error = function(a) {
-  Error.captureStackTrace ? Error.captureStackTrace(this, goog.debug.Error) : this.stack = Error().stack || "";
-  a && (this.message = String(a))
-};
-goog.inherits(goog.debug.Error, Error);
-goog.debug.Error.prototype.name = "CustomError";
 goog.string = {};
 goog.string.Unicode = {NBSP:"\u00a0"};
 goog.string.startsWith = function(a, b) {
@@ -694,6 +687,13 @@ goog.string.parseInt = function(a) {
   isFinite(a) && (a = String(a));
   return goog.isString(a) ? /^\s*-?0x/i.test(a) ? parseInt(a, 16) : parseInt(a, 10) : NaN
 };
+goog.debug = {};
+goog.debug.Error = function(a) {
+  Error.captureStackTrace ? Error.captureStackTrace(this, goog.debug.Error) : this.stack = Error().stack || "";
+  a && (this.message = String(a))
+};
+goog.inherits(goog.debug.Error, Error);
+goog.debug.Error.prototype.name = "CustomError";
 goog.asserts = {};
 goog.asserts.ENABLE_ASSERTS = goog.DEBUG;
 goog.asserts.AssertionError = function(a, b) {
@@ -2730,23 +2730,23 @@ cljs.core._hash["boolean"] = function(a) {
 cljs.core.IWithMeta["function"] = !0;
 cljs.core._with_meta["function"] = function(a, b) {
   return cljs.core.with_meta.call(null, function() {
-    if(void 0 === cljs.core.t3883) {
-      cljs.core.t3883 = {};
-      cljs.core.t3883 = function(a, b, c) {
+    if(void 0 === cljs.core.t2930) {
+      cljs.core.t2930 = {};
+      cljs.core.t2930 = function(a, b, c) {
         this.meta = a;
         this.f = b;
-        this.meta3884 = c;
+        this.meta2931 = c;
         this.cljs$lang$protocol_mask$partition1$ = 0;
         this.cljs$lang$protocol_mask$partition0$ = 393217
       };
-      cljs.core.t3883.cljs$lang$type = !0;
-      cljs.core.t3883.cljs$lang$ctorPrSeq = function() {
-        return cljs.core.list.call(null, "cljs.core/t3883")
+      cljs.core.t2930.cljs$lang$type = !0;
+      cljs.core.t2930.cljs$lang$ctorPrSeq = function() {
+        return cljs.core.list.call(null, "cljs.core/t2930")
       };
-      cljs.core.t3883.cljs$lang$ctorPrWriter = function(a, b) {
-        return cljs.core._write.call(null, b, "cljs.core/t3883")
+      cljs.core.t2930.cljs$lang$ctorPrWriter = function(a, b) {
+        return cljs.core._write.call(null, b, "cljs.core/t2930")
       };
-      var c = cljs.core.t3883.prototype, d = function(a, b) {
+      var c = cljs.core.t2930.prototype, d = function(a, b) {
         return cljs.core.apply.call(null, a.f, b)
       }, e = function(a, b) {
         var a = this, c = null;
@@ -2760,19 +2760,19 @@ cljs.core._with_meta["function"] = function(a, b) {
       };
       e.cljs$lang$arity$variadic = d;
       c.call = e;
-      cljs.core.t3883.prototype.apply = function(a, b) {
+      cljs.core.t2930.prototype.apply = function(a, b) {
         a = this;
         return a.call.apply(a, [a].concat(b.slice()))
       };
-      cljs.core.t3883.prototype.cljs$core$Fn$ = !0;
-      cljs.core.t3883.prototype.cljs$core$IMeta$_meta$arity$1 = function() {
-        return this.meta3884
+      cljs.core.t2930.prototype.cljs$core$Fn$ = !0;
+      cljs.core.t2930.prototype.cljs$core$IMeta$_meta$arity$1 = function() {
+        return this.meta2931
       };
-      cljs.core.t3883.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = function(a, b) {
-        return new cljs.core.t3883(this.meta, this.f, b)
+      cljs.core.t2930.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = function(a, b) {
+        return new cljs.core.t2930(this.meta, this.f, b)
       }
     }
-    return new cljs.core.t3883(b, a, null)
+    return new cljs.core.t2930(b, a, null)
   }(), b)
 };
 cljs.core.IMeta["function"] = !0;
@@ -12696,7 +12696,7 @@ cljs.core.UUID.prototype.toString = function() {
 };
 var zee3 = {draw:{}};
 zee3.draw.defaults = {};
-zee3.draw.defaults.base = cljs.core.ObjMap.fromObject("\ufdd0'x \ufdd0'y \ufdd0'width \ufdd0'height \ufdd0'lineWidth \ufdd0'fillStyle \ufdd0'strokeStyle".split(" "), {"\ufdd0'x":0, "\ufdd0'y":0, "\ufdd0'width":100, "\ufdd0'height":100, "\ufdd0'lineWidth":1, "\ufdd0'fillStyle":"#FFFFFF", "\ufdd0'strokeStyle":"#FFFFFF"});
+zee3.draw.defaults.base = cljs.core.ObjMap.fromObject("\ufdd0'x \ufdd0'y \ufdd0'width \ufdd0'height \ufdd0'lineWidth \ufdd0'fillStyle \ufdd0'Strokestyle".split(" "), {"\ufdd0'x":0, "\ufdd0'y":0, "\ufdd0'width":100, "\ufdd0'height":100, "\ufdd0'lineWidth":1, "\ufdd0'fillStyle":"#FFFFFF", "\ufdd0'Strokestyle":"#FFFFFF"});
 zee3.draw.defaults.rounded_rectangle = cljs.core.merge.call(null, zee3.draw.defaults.base, cljs.core.ObjMap.fromObject(["\ufdd0'cornerRadius"], {"\ufdd0'cornerRadius":5}));
 zee3.draw.defaults.circle = cljs.core.merge.call(null, zee3.draw.defaults.base, cljs.core.ObjMap.fromObject(["\ufdd0'centerX", "\ufdd0'centerY", "\ufdd0'radius", "\ufdd0'lineWidth"], {"\ufdd0'centerX":0, "\ufdd0'centerY":100, "\ufdd0'radius":100, "\ufdd0'lineWidth":1}));
 zee3.draw.defaults.text = cljs.core.ObjMap.fromObject(["\ufdd0'fillStyle", "\ufdd0'x", "\ufdd0'y", "\ufdd0'font", "\ufdd0'text"], {"\ufdd0'fillStyle":"#FFFFFF", "\ufdd0'x":0, "\ufdd0'y":0, "\ufdd0'font":"bold 16px Arial", "\ufdd0'text":""});
@@ -12904,20 +12904,3 @@ zee3.draw.core.get_entity = function(a) {
     return cljs.core._EQ_.call(null, a, cljs.core._lookup.call(null, b, "\ufdd0'id", null))
   }, cljs.core.deref.call(null, zee3.draw.shapes.entities)))
 };
-var hello_clojurescript = {};
-hello_clojurescript.cnt = cljs.core.atom.call(null, 0);
-hello_clojurescript.handle_click = function() {
-  zee3.draw.core.stage.call(null, cljs.core.ObjMap.fromObject(["\ufdd0'id", "\ufdd0'x", "\ufdd0'y", "\ufdd0'width", "\ufdd0'height"], {"\ufdd0'id":[cljs.core.str("myStage"), cljs.core.str(cljs.core.swap_BANG_.call(null, hello_clojurescript.cnt, cljs.core.inc))].join(""), "\ufdd0'x":0, "\ufdd0'y":0, "\ufdd0'width":600, "\ufdd0'height":300}));
-  var a = [cljs.core.str("myStage"), cljs.core.str(cljs.core.deref.call(null, hello_clojurescript.cnt))].join("");
-  zee3.draw.shapes.rectangle.call(null, a, cljs.core.ObjMap.fromObject(["\ufdd0'mouseup"], {"\ufdd0'mouseup":function() {
-    return alert("test rectangle")
-  }}));
-  zee3.draw.shapes.circle.call(null, a, cljs.core.ObjMap.fromObject(["\ufdd0'centerX", "\ufdd0'centerY", "\ufdd0'mouseup"], {"\ufdd0'centerX":500, "\ufdd0'centerY":200, "\ufdd0'mouseup":function() {
-    return alert("test circle")
-  }}));
-  return zee3.draw.shapes.circle.call(null, a, cljs.core.ObjMap.fromObject(["\ufdd0'centerX", "\ufdd0'centerY", "\ufdd0'mousemove"], {"\ufdd0'centerX":200, "\ufdd0'centerY":200, "\ufdd0'mousemove":function() {
-    return alert("test mouseover circle")
-  }}))
-};
-hello_clojurescript.clickable = document.getElementById("clickable");
-hello_clojurescript.clickable.addEventListener("click", hello_clojurescript.handle_click);

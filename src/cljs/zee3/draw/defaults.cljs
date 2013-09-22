@@ -7,7 +7,7 @@
    :height 100
    :lineWidth 1
    :fillStyle "#FFFFFF"
-   :strokeStyle "#FFFFFF"})	
+   :Strokestyle "#FFFFFF"})	
 
 (def rounded-rectangle
      (merge base
