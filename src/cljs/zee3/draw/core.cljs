@@ -18,10 +18,10 @@
 (defn setupEvents [stage]
       (.addEventListener stage "mouseup" handle-mouseup)
       (.addEventListener stage "mousemove" handle-mousemove)
-      (.addEventListener stage "mousedown" (fn[event]))
-      (.addEventListener stage "touchstart" (fn[event]))
-      (.addEventListener stage "touchend" handle-mouse-up)
-      (.addEventListener stage "touchmove" (fn[event])))
+      (.addEventListener stage "mousedown" handle-mousedown)
+      (.addEventListener stage "touchstart" handle-mousedown)
+      (.addEventListener stage "touchend" handle-mouseup)
+      (.addEventListener stage "touchmove" handle-mousemove))
 
 (defn handle-mouseup [event]
       (let [x (.-clientX event) y (.-clientY event)]
@@ -33,9 +33,10 @@
     (let [k (filter #(and (not= "stage" (get % :type)) (intersects % {:x x :y y}) (contains? % :mousemove)) @shape/entities)]
 		(doseq [{:keys [mousemove]} k] (mousemove)))))
 
-(defn mouse-down [entities, point] 
-	(let [k (filter #(and (intersects % point) (contains? % :mouse-down)) @shape/entities)]
-		(map #((get % :mouse-down)) k)))
+(defn handle-mousedown [event] 
+(let [x (.-clientX event) y (.-clientY event)]
+      	(let [k (filter #(and (not= "stage" (get % :type)) (intersects % {:x x :y y}) (contains? % :mousedown)) @shape/entities)]
+		(doseq [{:keys [mousedown]} k] (mousedown)))))
 
 (defn intersects [shape point]
 	(if (= (get shape :type) "circle" )

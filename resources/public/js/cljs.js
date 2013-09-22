@@ -358,6 +358,13 @@ goog.base = function(a, b, c) {
 goog.scope = function(a) {
   a.call(goog.global)
 };
+goog.debug = {};
+goog.debug.Error = function(a) {
+  Error.captureStackTrace ? Error.captureStackTrace(this, goog.debug.Error) : this.stack = Error().stack || "";
+  a && (this.message = String(a))
+};
+goog.inherits(goog.debug.Error, Error);
+goog.debug.Error.prototype.name = "CustomError";
 goog.string = {};
 goog.string.Unicode = {NBSP:"\u00a0"};
 goog.string.startsWith = function(a, b) {
@@ -687,13 +694,6 @@ goog.string.parseInt = function(a) {
   isFinite(a) && (a = String(a));
   return goog.isString(a) ? /^\s*-?0x/i.test(a) ? parseInt(a, 16) : parseInt(a, 10) : NaN
 };
-goog.debug = {};
-goog.debug.Error = function(a) {
-  Error.captureStackTrace ? Error.captureStackTrace(this, goog.debug.Error) : this.stack = Error().stack || "";
-  a && (this.message = String(a))
-};
-goog.inherits(goog.debug.Error, Error);
-goog.debug.Error.prototype.name = "CustomError";
 goog.asserts = {};
 goog.asserts.ENABLE_ASSERTS = goog.DEBUG;
 goog.asserts.AssertionError = function(a, b) {
@@ -12813,16 +12813,10 @@ zee3.draw.core.stage = function(a) {
 zee3.draw.core.setupEvents = function(a) {
   a.addEventListener("mouseup", zee3.draw.core.handle_mouseup);
   a.addEventListener("mousemove", zee3.draw.core.handle_mousemove);
-  a.addEventListener("mousedown", function() {
-    return null
-  });
-  a.addEventListener("touchstart", function() {
-    return null
-  });
-  a.addEventListener("touchend", zee3.draw.core.handle_mouse_up);
-  return a.addEventListener("touchmove", function() {
-    return null
-  })
+  a.addEventListener("mousedown", zee3.draw.core.handle_mousedown);
+  a.addEventListener("touchstart", zee3.draw.core.handle_mousedown);
+  a.addEventListener("touchend", zee3.draw.core.handle_mouseup);
+  return a.addEventListener("touchmove", zee3.draw.core.handle_mousemove)
 };
 zee3.draw.core.handle_mouseup = function(a) {
   for(var b = a.clientX, c = a.clientY, a = cljs.core.filter.call(null, function(a) {
@@ -12852,14 +12846,19 @@ zee3.draw.core.handle_mousemove = function(a) {
     }
   }
 };
-zee3.draw.core.mouse_down = function(a, b) {
-  var c = cljs.core.filter.call(null, function(a) {
-    var c = zee3.draw.core.intersects.call(null, a, b);
-    return cljs.core.truth_(c) ? cljs.core.contains_QMARK_.call(null, a, "\ufdd0'mouse-down") : c
-  }, cljs.core.deref.call(null, zee3.draw.shapes.entities));
-  return cljs.core.map.call(null, function(a) {
-    return cljs.core._lookup.call(null, a, "\ufdd0'mouse-down", null).call(null)
-  }, c)
+zee3.draw.core.handle_mousedown = function(a) {
+  for(var b = a.clientX, c = a.clientY, a = cljs.core.filter.call(null, function(a) {
+    var d = cljs.core.not_EQ_.call(null, "stage", cljs.core._lookup.call(null, a, "\ufdd0'type", null));
+    return d ? (d = zee3.draw.core.intersects.call(null, a, cljs.core.ObjMap.fromObject(["\ufdd0'x", "\ufdd0'y"], {"\ufdd0'x":b, "\ufdd0'y":c})), cljs.core.truth_(d) ? cljs.core.contains_QMARK_.call(null, a, "\ufdd0'mousedown") : d) : d
+  }, cljs.core.deref.call(null, zee3.draw.shapes.entities)), a = cljs.core.seq.call(null, a);;) {
+    if(a) {
+      var d = cljs.core.first.call(null, a), d = cljs.core.seq_QMARK_.call(null, d) ? cljs.core.apply.call(null, cljs.core.hash_map, d) : d;
+      cljs.core._lookup.call(null, d, "\ufdd0'mousedown", null).call(null);
+      a = cljs.core.next.call(null, a)
+    }else {
+      return null
+    }
+  }
 };
 zee3.draw.core.intersects = function(a, b) {
   return cljs.core._EQ_.call(null, cljs.core._lookup.call(null, a, "\ufdd0'type", null), "circle") ? zee3.draw.core.intersects_circle.call(null, a, zee3.draw.core.absolute_point.call(null, cljs.core._lookup.call(null, a, "\ufdd0'stage", null), b)) : zee3.draw.core.intersects_rectangle.call(null, a, zee3.draw.core.absolute_point.call(null, cljs.core._lookup.call(null, a, "\ufdd0'stage", null), b))
