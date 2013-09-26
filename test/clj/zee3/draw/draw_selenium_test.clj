@@ -12,7 +12,13 @@
 (defn test-output []
    ;retrieve the test output
    (text (find-element {:id "test_output"})))
-  
+
+(defn mouse-click [x y]  
+   (let [act (:actions *driver*)] 
+      (.moveToElement act (:webelement (element {:tag :canvas})) x y) 
+      (.click act) 
+      (.perform act)))
+
 (use-fixtures :once setup)
 
 (deftest circle-mouseup
@@ -35,6 +41,20 @@
       (.perform act))
    (is (= (test-output) "crcl-mousedown")))
 
+(deftest circle-bounds-test 
+   (mouse-click 25 2)
+   (is (= (test-output) "crcl-mouseup"))
+   (mouse-click 125 75)
+   (mouse-click 2 25)
+   (is (= (test-output) "crcl-mouseup"))
+   (mouse-click 125 75)
+   (mouse-click 25 48)
+   (is (= (test-output) "crcl-mouseup"))
+   (mouse-click 125 75)
+   (mouse-click 48 25)
+   (is (= (test-output) "crcl-mouseup")))
+
+
 (deftest rectangle-mouseup
    (let [act (:actions *driver*)] 
       (.moveToElement act (:webelement (element {:tag :canvas})) 25 75) 
@@ -54,3 +74,18 @@
       (.click act) 
       (.perform act))
    (is (= (test-output) "rect-mousedown")))
+
+(deftest rectangle-bounds-test 
+   (mouse-click 48 51)
+   (is (= (test-output) "rect-mouseup"))
+   (mouse-click 125 75)
+   (mouse-click 1 51)
+   (is (= (test-output) "rect-mouseup"))
+   (mouse-click 125 75)
+   (mouse-click 48 98)
+   (is (= (test-output) "rect-mouseup"))
+   (mouse-click 125 75)
+   (mouse-click 48 98)
+   (is (= (test-output) "rect-mouseup")))
+
+

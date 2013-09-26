@@ -237,3 +237,4 @@ exit
       (.moveToElement act (:webelement (element {:tag :canvas})) 70 70) 
       (.click act) 
       (.perform act))
+exit
