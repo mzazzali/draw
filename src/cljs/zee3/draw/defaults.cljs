@@ -1,5 +1,7 @@
 (ns zee3.draw.defaults)
 
+(def HIT-TEST-STAGE "color-map-stage")
+
 (def base 
   {:x 0
    :y 0

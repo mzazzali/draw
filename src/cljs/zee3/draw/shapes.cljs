@@ -5,27 +5,31 @@
 (def contexts (atom {}))
 (def entity-id (atom 0))
 
+(defn init-config [type renderer config]
+  (assoc 
+      (merge config/rounded-rectangle config) 
+      :type type
+      :renderer renderer))
+
 ;;entity functions
 (defn rectangle [stage config]
-  (let [mc (assoc (merge config/base config) :type "rectangle") 
-       ctx (get @contexts stage)]
-    (draw-rectangle ctx mc)
+  (let [mc (init-config "rectangle" draw-rectangle config) ctx (get @contexts stage)]
+    (render ctx mc)
     (base-config stage mc)))
 
 (defn rounded-rectangle [stage config]
-  (let [mc (assoc (merge config/rounded-rectangle config) :type "rounded-rectangle") 
-        ctx (get @contexts stage)]
-    (draw-rounded-rectangle ctx mc)
+  (let [mc (init-config "rounded-rectangle" draw-rounded-rectangle config) ctx (get @contexts stage)]
+    (render ctx mc)
     (base-config stage mc)))
 
 (defn circle [stage config]
-  (let [mc (assoc (merge config/circle config) :type "circle") ctx (get @contexts stage) ]
-    (draw-circle ctx mc)
+  (let [mc (init-config "circle" draw-circle config) ctx (get @contexts stage) ]
+    (render ctx mc)
     (base-config stage mc)))
 
 (defn text [stage config]
-  (let [mc (assoc (merge config/circle config) :type "text" :stage stage) ctx (get @contexts stage)]
-    (draw-text mc)
+  (let [mc (init-config "text" draw-text config) ctx (get @contexts stage)]
+    (render ctx mc)
     (base-config stage mc)))
 
 (defn base-config [stage config]
@@ -35,15 +39,22 @@
   (apply assoc (merge default config) rest))
 
 ;;rendering functions
+(defn render [ctx config]
+  (doseq [f (vec [render-shape zee3.draw.colormap/render-shape])] (f ctx config)))
+
+(defn render-shape [ctx config]
+   ((:renderer config) ctx config))
+
 (defn draw-base [ctx config f]
-	(let [{:keys [lineWidth fillStyle strokeStyle]} config ]
-		(.beginPath ctx)
-		(set! (.-fillStyle ctx) fillStyle)
-		(set! (.-strokeStyle ctx) strokeStyle)
-		(set! (.-lineWidth ctx) lineWidth)
-		(f ctx config)
-		(.fill ctx)
-		(.stroke ctx)))
+   (let [{:keys [lineWidth fillStyle strokeStyle]} config ]
+      (.beginPath ctx)
+      (set! (.-fillStyle ctx) fillStyle)
+      (set! (.-strokeStyle ctx) strokeStyle)
+      (set! (.-lineWidth ctx) lineWidth)
+      (f ctx config)
+      (.fill ctx)
+      (.stroke ctx))
+   (doseq [f (:base-init zee3.draw.defaults/cfg)] (f config)))
 
 
 (defn draw-rectangle [ctx config]
@@ -78,5 +89,3 @@
     (set! (.-font ctx) font) 
     (set! (.-textBaseline ctx) textBaseline)
     (.fillText ctx text)))))
-
-  

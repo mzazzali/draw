@@ -238,3 +238,25 @@ exit
       (.click act) 
       (.perform act))
 exit
+(defn draw-stage [config]
+  (let [ {:keys [id width height]} config e (.createElement js/document "canvas") hit-stage-id (str id HIT-TEST-STAGE)]
+    (set! (.-id e) hit-stage-id)
+    (Set! (.-width e) width)
+    (set! (.-height e) height)
+    (setupEvents e)
+    (let [ctx (.getContext e "2d")]
+      (swap! shape/entities conj (assoc config :type "stage" :ref e :context ctx :parent hit-stage-id)))))
+exit
+(defn to-hex [s]
+  (format "%2x" s))
+(defn color-hash [] 
+   (let [r (atom 0) g (atom 0) b (atom 0)]
+      (fn [] 
+         (let [hex-color (str "#" (to-hex @r) (to-hex @g) (to-hex @b))]
+            (swap! r inc)
+    (if (> @r 255) (do (swap! r 0) (swap! g inc)))
+    (if (> @g 255) (do (swap! g 0) (swap! b inc)))
+    (if (> @b 255) (swap! b 0))
+    hex-color))))
+(def color-generator [] (color-hash))
+exit

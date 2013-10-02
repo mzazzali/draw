@@ -2730,23 +2730,23 @@ cljs.core._hash["boolean"] = function(a) {
 cljs.core.IWithMeta["function"] = !0;
 cljs.core._with_meta["function"] = function(a, b) {
   return cljs.core.with_meta.call(null, function() {
-    if(void 0 === cljs.core.t2930) {
-      cljs.core.t2930 = {};
-      cljs.core.t2930 = function(a, b, c) {
+    if(void 0 === cljs.core.t2951) {
+      cljs.core.t2951 = {};
+      cljs.core.t2951 = function(a, b, c) {
         this.meta = a;
         this.f = b;
-        this.meta2931 = c;
+        this.meta2952 = c;
         this.cljs$lang$protocol_mask$partition1$ = 0;
         this.cljs$lang$protocol_mask$partition0$ = 393217
       };
-      cljs.core.t2930.cljs$lang$type = !0;
-      cljs.core.t2930.cljs$lang$ctorPrSeq = function() {
-        return cljs.core.list.call(null, "cljs.core/t2930")
+      cljs.core.t2951.cljs$lang$type = !0;
+      cljs.core.t2951.cljs$lang$ctorPrSeq = function() {
+        return cljs.core.list.call(null, "cljs.core/t2951")
       };
-      cljs.core.t2930.cljs$lang$ctorPrWriter = function(a, b) {
-        return cljs.core._write.call(null, b, "cljs.core/t2930")
+      cljs.core.t2951.cljs$lang$ctorPrWriter = function(a, b) {
+        return cljs.core._write.call(null, b, "cljs.core/t2951")
       };
-      var c = cljs.core.t2930.prototype, d = function(a, b) {
+      var c = cljs.core.t2951.prototype, d = function(a, b) {
         return cljs.core.apply.call(null, a.f, b)
       }, e = function(a, b) {
         var a = this, c = null;
@@ -2760,19 +2760,19 @@ cljs.core._with_meta["function"] = function(a, b) {
       };
       e.cljs$lang$arity$variadic = d;
       c.call = e;
-      cljs.core.t2930.prototype.apply = function(a, b) {
+      cljs.core.t2951.prototype.apply = function(a, b) {
         a = this;
         return a.call.apply(a, [a].concat(b.slice()))
       };
-      cljs.core.t2930.prototype.cljs$core$Fn$ = !0;
-      cljs.core.t2930.prototype.cljs$core$IMeta$_meta$arity$1 = function() {
-        return this.meta2931
+      cljs.core.t2951.prototype.cljs$core$Fn$ = !0;
+      cljs.core.t2951.prototype.cljs$core$IMeta$_meta$arity$1 = function() {
+        return this.meta2952
       };
-      cljs.core.t2930.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = function(a, b) {
-        return new cljs.core.t2930(this.meta, this.f, b)
+      cljs.core.t2951.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = function(a, b) {
+        return new cljs.core.t2951(this.meta, this.f, b)
       }
     }
-    return new cljs.core.t2930(b, a, null)
+    return new cljs.core.t2951(b, a, null)
   }(), b)
 };
 cljs.core.IMeta["function"] = !0;
@@ -12696,6 +12696,7 @@ cljs.core.UUID.prototype.toString = function() {
 };
 var zee3 = {draw:{}};
 zee3.draw.defaults = {};
+zee3.draw.defaults.HIT_TEST_STAGE = "color-map-stage";
 zee3.draw.defaults.base = cljs.core.ObjMap.fromObject("\ufdd0'x \ufdd0'y \ufdd0'width \ufdd0'height \ufdd0'lineWidth \ufdd0'fillStyle \ufdd0'Strokestyle".split(" "), {"\ufdd0'x":0, "\ufdd0'y":0, "\ufdd0'width":100, "\ufdd0'height":100, "\ufdd0'lineWidth":1, "\ufdd0'fillStyle":"#FFFFFF", "\ufdd0'Strokestyle":"#FFFFFF"});
 zee3.draw.defaults.rounded_rectangle = cljs.core.merge.call(null, zee3.draw.defaults.base, cljs.core.ObjMap.fromObject(["\ufdd0'cornerRadius"], {"\ufdd0'cornerRadius":5}));
 zee3.draw.defaults.circle = cljs.core.merge.call(null, zee3.draw.defaults.base, cljs.core.ObjMap.fromObject(["\ufdd0'centerX", "\ufdd0'centerY", "\ufdd0'radius", "\ufdd0'lineWidth"], {"\ufdd0'centerX":0, "\ufdd0'centerY":100, "\ufdd0'radius":100, "\ufdd0'lineWidth":1}));
@@ -12704,25 +12705,27 @@ zee3.draw.shapes = {};
 zee3.draw.shapes.entities = cljs.core.atom.call(null, cljs.core.PersistentVector.EMPTY);
 zee3.draw.shapes.contexts = cljs.core.atom.call(null, cljs.core.ObjMap.EMPTY);
 zee3.draw.shapes.entity_id = cljs.core.atom.call(null, 0);
+zee3.draw.shapes.init_config = function(a, b, c) {
+  return cljs.core.assoc.call(null, cljs.core.merge.call(null, zee3.draw.defaults.rounded_rectangle, c), "\ufdd0'type", a, "\ufdd0'renderer", b)
+};
 zee3.draw.shapes.rectangle = function(a, b) {
-  var c = cljs.core.assoc.call(null, cljs.core.merge.call(null, zee3.draw.defaults.base, b), "\ufdd0'type", "rectangle"), d = cljs.core._lookup.call(null, cljs.core.deref.call(null, zee3.draw.shapes.contexts), a, null);
-  zee3.draw.shapes.draw_rectangle.call(null, d, c);
+  var c = zee3.draw.shapes.init_config.call(null, "rectangle", zee3.draw.shapes.draw_rectangle, b), d = cljs.core._lookup.call(null, cljs.core.deref.call(null, zee3.draw.shapes.contexts), a, null);
+  zee3.draw.shapes.render.call(null, d, c);
   return zee3.draw.shapes.base_config.call(null, a, c)
 };
 zee3.draw.shapes.rounded_rectangle = function(a, b) {
-  var c = cljs.core.assoc.call(null, cljs.core.merge.call(null, zee3.draw.defaults.rounded_rectangle, b), "\ufdd0'type", "rounded-rectangle"), d = cljs.core._lookup.call(null, cljs.core.deref.call(null, zee3.draw.shapes.contexts), a, null);
-  zee3.draw.shapes.draw_rounded_rectangle.call(null, d, c);
+  var c = zee3.draw.shapes.init_config.call(null, "rounded-rectangle", zee3.draw.shapes.draw_rounded_rectangle, b), d = cljs.core._lookup.call(null, cljs.core.deref.call(null, zee3.draw.shapes.contexts), a, null);
+  zee3.draw.shapes.render.call(null, d, c);
   return zee3.draw.shapes.base_config.call(null, a, c)
 };
 zee3.draw.shapes.circle = function(a, b) {
-  var c = cljs.core.assoc.call(null, cljs.core.merge.call(null, zee3.draw.defaults.circle, b), "\ufdd0'type", "circle"), d = cljs.core._lookup.call(null, cljs.core.deref.call(null, zee3.draw.shapes.contexts), a, null);
-  zee3.draw.shapes.draw_circle.call(null, d, c);
+  var c = zee3.draw.shapes.init_config.call(null, "circle", zee3.draw.shapes.draw_circle, b), d = cljs.core._lookup.call(null, cljs.core.deref.call(null, zee3.draw.shapes.contexts), a, null);
+  zee3.draw.shapes.render.call(null, d, c);
   return zee3.draw.shapes.base_config.call(null, a, c)
 };
 zee3.draw.shapes.text = function(a, b) {
-  var c = cljs.core.assoc.call(null, cljs.core.merge.call(null, zee3.draw.defaults.circle, b), "\ufdd0'type", "text", "\ufdd0'stage", a);
-  cljs.core._lookup.call(null, cljs.core.deref.call(null, zee3.draw.shapes.contexts), a, null);
-  zee3.draw.shapes.draw_text.call(null, c);
+  var c = zee3.draw.shapes.init_config.call(null, "text", zee3.draw.shapes.draw_text, b), d = cljs.core._lookup.call(null, cljs.core.deref.call(null, zee3.draw.shapes.contexts), a, null);
+  zee3.draw.shapes.render.call(null, d, c);
   return zee3.draw.shapes.base_config.call(null, a, c)
 };
 zee3.draw.shapes.base_config = function(a, b) {
@@ -12744,6 +12747,18 @@ zee3.draw.shapes.apply_defaults = function() {
   b.cljs$lang$arity$variadic = a;
   return b
 }();
+zee3.draw.shapes.render = function(a, b) {
+  for(var c = cljs.core.seq.call(null, cljs.core.vec.call(null, cljs.core.PersistentVector.fromArray([zee3.draw.shapes.render_shape, zee3.draw.colormap.render_shape], !0)));;) {
+    if(c) {
+      cljs.core.first.call(null, c).call(null, a, b), c = cljs.core.next.call(null, c)
+    }else {
+      return null
+    }
+  }
+};
+zee3.draw.shapes.render_shape = function(a, b) {
+  return(new cljs.core.Keyword("\ufdd0'renderer")).call(null, b).call(null, a, b)
+};
 zee3.draw.shapes.draw_base = function(a, b, c) {
   var d = cljs.core.seq_QMARK_.call(null, b) ? cljs.core.apply.call(null, cljs.core.hash_map, b) : b, e = cljs.core._lookup.call(null, d, "\ufdd0'strokeStyle", null), f = cljs.core._lookup.call(null, d, "\ufdd0'fillStyle", null), d = cljs.core._lookup.call(null, d, "\ufdd0'lineWidth", null);
   a.beginPath();
@@ -12752,7 +12767,14 @@ zee3.draw.shapes.draw_base = function(a, b, c) {
   a.lineWidth = d;
   c.call(null, a, b);
   a.fill();
-  return a.stroke()
+  a.stroke();
+  for(a = cljs.core.seq.call(null, (new cljs.core.Keyword("\ufdd0'base-init")).call(null, zee3.draw.defaults.cfg));;) {
+    if(a) {
+      cljs.core.first.call(null, a).call(null, b), a = cljs.core.next.call(null, a)
+    }else {
+      return null
+    }
+  }
 };
 zee3.draw.shapes.draw_rectangle = function(a, b) {
   var c = cljs.core.seq_QMARK_.call(null, b) ? cljs.core.apply.call(null, cljs.core.hash_map, b) : b, d = cljs.core._lookup.call(null, c, "\ufdd0'height", null), e = cljs.core._lookup.call(null, c, "\ufdd0'width", null), f = cljs.core._lookup.call(null, c, "\ufdd0'y", null), g = cljs.core._lookup.call(null, c, "\ufdd0'x", null);
@@ -12797,18 +12819,50 @@ zee3.draw.shapes.draw_text = function(a, b) {
     return d.fillText(zee3.draw.shapes.text)
   })
 };
+zee3.draw.colormap = {};
+zee3.draw.colormap.to_hex = function(a) {
+  return cljs.core.format.call(null, "%2x", a)
+};
+zee3.draw.colormap.color_hash = function() {
+  var a = cljs.core.atom.call(null, 0), b = cljs.core.atom.call(null, 0), c = cljs.core.atom.call(null, 0);
+  return function() {
+    var d = [cljs.core.str("#"), cljs.core.str(zee3.draw.colormap.to_hex.call(null, cljs.core.deref.call(null, a))), cljs.core.str(zee3.draw.colormap.to_hex.call(null, cljs.core.deref.call(null, b))), cljs.core.str(zee3.draw.colormap.to_hex.call(null, cljs.core.deref.call(null, c)))].join("");
+    cljs.core.swap_BANG_.call(null, a, cljs.core.inc);
+    255 < cljs.core.deref.call(null, a) && (cljs.core.swap_BANG_.call(null, a, 0), cljs.core.swap_BANG_.call(null, b, cljs.core.inc));
+    255 < cljs.core.deref.call(null, b) && (cljs.core.swap_BANG_.call(null, b, 0), cljs.core.swap_BANG_.call(null, c, cljs.core.inc));
+    255 < cljs.core.deref.call(null, c) && cljs.core.swap_BANG_.call(null, c, 0);
+    return d
+  }
+};
+zee3.draw.colormap.color_generator = zee3.draw.colormap.color_hash.call(null);
+zee3.draw.colormap.draw_stage = function(a) {
+  var b = cljs.core.seq_QMARK_.call(null, a) ? cljs.core.apply.call(null, cljs.core.hash_map, a) : a, c = cljs.core._lookup.call(null, b, "\ufdd0'height", null), d = cljs.core._lookup.call(null, b, "\ufdd0'width", null), e = cljs.core._lookup.call(null, b, "\ufdd0'id", null), b = document.createElement("canvas"), e = [cljs.core.str(e), cljs.core.str(zee3.draw.colormap.HIT_TEST_STAGE)].join("");
+  b.id = e;
+  b.width = d;
+  b.height = c;
+  c = b.getContext("2d");
+  return cljs.core.swap_BANG_.call(null, zee3.draw.shapes.entities, cljs.core.conj, cljs.core.assoc.call(null, a, "\ufdd0'type", "stage", "\ufdd0'ref", b, "\ufdd0'context", c, "\ufdd0'parent", e))
+};
+zee3.draw.colormap.render_shape = function(a, b) {
+  var c = zee3.draw.colormap.color_generator.call(null), c = cljs.core.assoc.call(null, b, "\ufdd0'strokeStyle", c, "\ufdd0'fillStyle", c);
+  return(new cljs.core.Keyword("\ufdd0'renderer")).call(null, b).call(null, a, c)
+};
 zee3.draw.core = {};
+zee3.draw.core.HIT_TEST_STAGE = "hit-test-stage";
 zee3.draw.core.stage = function(a) {
+  zee3.draw.core.draw_stage.call(null, a);
+  return zee3.draw.colormap.draw_stage.call(null, a)
+};
+zee3.draw.core.draw_stage = function(a) {
   var b = cljs.core.seq_QMARK_.call(null, a) ? cljs.core.apply.call(null, cljs.core.hash_map, a) : a, c = cljs.core._lookup.call(null, b, "\ufdd0'height", null), d = cljs.core._lookup.call(null, b, "\ufdd0'width", null), b = cljs.core._lookup.call(null, b, "\ufdd0'id", null), e = document.createElement("canvas");
   e.id = b;
   e.width = d;
   e.height = c;
   document.getElementsByTagName("body")[0].appendChild(e);
   zee3.draw.core.setupEvents.call(null, e);
-  cljs.core.swap_BANG_.call(null, zee3.draw.shapes.entities, cljs.core.conj, cljs.core.assoc.call(null, a, "\ufdd0'type", "stage", "\ufdd0'ref", e));
-  a = e.getContext("2d");
-  cljs.core.swap_BANG_.call(null, zee3.draw.shapes.contexts, cljs.core.assoc, b, a);
-  return a
+  c = e.getContext("2d");
+  cljs.core.swap_BANG_.call(null, zee3.draw.shapes.contexts, cljs.core.assoc, b, c);
+  return cljs.core.swap_BANG_.call(null, zee3.draw.shapes.entities, cljs.core.conj, cljs.core.assoc.call(null, a, "\ufdd0'type", "stage", "\ufdd0'ref", e, "\ufdd0'context", c))
 };
 zee3.draw.core.setupEvents = function(a) {
   a.addEventListener("mouseup", zee3.draw.core.handle_mouseup);

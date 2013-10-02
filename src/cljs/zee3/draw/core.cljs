@@ -1,19 +1,24 @@
 (ns zee3.draw.core
   (:require [zee3.draw.defaults :as config]
-            [zee3.draw.shapes :as shape]))
+            [zee3.draw.shapes :as shape]
+            [zee3.draw.colormap :as color-map]))
+
+(def HIT-TEST-STAGE "hit-test-stage")
 
 (defn stage [config]
+  (draw-stage config)
+  (color-map/draw-stage config))
+
+(defn draw-stage [config]
   (let [ {:keys [id width height]} config e (.createElement js/document "canvas")]
     (set! (.-id e) id)
     (set! (.-width e) width)
     (set! (.-height e) height)
     (.appendChild (aget (.getElementsByTagName js/document "body") 0) e)
     (setupEvents e)
-    (swap! shape/entities conj (assoc config :type "stage" :ref e))
     (let [ctx (.getContext e "2d")]
       (swap! shape/contexts assoc id ctx)
-      ctx)))
-
+      (swap! shape/entities conj (assoc config :type "stage" :ref e :context ctx)))))
 
 (defn setupEvents [stage]
       (.addEventListener stage "mouseup" handle-mouseup)
