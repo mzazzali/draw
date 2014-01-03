@@ -1,0 +1,13 @@
+(ns zee3.draw.draw-selenium-test
+   (:use clojure.test))
+
+(use 'clj-webdriver.taxi)
+
+(defn setup [f]
+   (set-driver! {:browser :firefox})
+   (to (str "file://" (-> (java.io.File. ".") .getAbsolutePath) "/resources/public/selenium-tests.htm"))
+   (f)
+   (quit))
+
+(use-fixtures :once setup)
+
