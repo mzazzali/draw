@@ -6,34 +6,35 @@
 (def entity-id (atom 0))
 
 (defn init-config [type renderer config]
-  (assoc 
-      (merge config/rounded-rectangle config) 
+  (assoc
+      (merge config/rounded-rectangle config)
       :type type
       :renderer renderer))
 
 ;;entity functions
 (defn rectangle [stage config]
   (let [mc (init-config "rectangle" draw-rectangle config) ctx (get @contexts stage)]
-    (render ctx mc)
-    (base-config stage mc)))
+    (render ctx (base-config stage mc))))
 
 (defn rounded-rectangle [stage config]
   (let [mc (init-config "rounded-rectangle" draw-rounded-rectangle config) ctx (get @contexts stage)]
-    (render ctx mc)
-    (base-config stage mc)))
+
+    (render ctx (base-config stage mc))))
 
 (defn circle [stage config]
   (let [mc (init-config "circle" draw-circle config) ctx (get @contexts stage) ]
-    (render ctx mc)
-    (base-config stage mc)))
+    (base-config stage mc)
+    (render ctx (base-config stage mc))))
 
 (defn text [stage config]
   (let [mc (init-config "text" draw-text config) ctx (get @contexts stage)]
-    (render ctx mc)
-    (base-config stage mc)))
+    (render ctx (base-config stage mc))))
 
 (defn base-config [stage config]
-  (swap! entities conj (assoc config :stage stage)))
+  (let [b-config (assoc config :stage stage)]
+    (.log js/console (clj->js b-config))
+    (swap! entities conj b-config)
+     b-config))
 
 (defn apply-defaults [default config & rest]
   (apply assoc (merge default config) rest))
@@ -59,7 +60,7 @@
 
 (defn draw-rectangle [ctx config]
   (let [{:keys [x y width height]} config]
-    (draw-base ctx config 
+    (draw-base ctx config
       (fn [] (.fillRect ctx x y width height)))))
 
 (defn draw-rounded-rectangle [ctx config]
@@ -79,13 +80,18 @@
   (let [{:keys [centerX centerY radius]} config]
     (draw-base ctx config (fn []
     (.arc ctx centerX centerY radius 0 (* 2 (.-PI js/Math)) false )))))
-      
+
 
 (defn draw-text [ctx config]
-  (let [{:keys [centerX centerY radius]} mc 
+  (let [{:keys [centerX centerY radius]} mc
         ctx (get @contexts stage)]
   (draw-base ctx config (fn []
     (set! (.-fillStyle ctx) fillStyle)
-    (set! (.-font ctx) font) 
+    (set! (.-font ctx) font)
     (set! (.-textBaseline ctx) textBaseline)
     (.fillText ctx text)))))
+
+
+
+
+

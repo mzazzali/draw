@@ -38,7 +38,7 @@
     (let [k (filter #(and (not= "stage" (get % :type)) (intersects % {:x x :y y}) (contains? % :mousemove)) @shape/entities)]
 		(doseq [{:keys [mousemove]} k] (mousemove)))))
 
-(defn handle-mousedown [event] 
+(defn handle-mousedown [event]
 (let [x (.-clientX event) y (.-clientY event)]
       	(let [k (filter #(and (not= "stage" (get % :type)) (intersects % {:x x :y y}) (contains? % :mousedown)) @shape/entities)]
 		(doseq [{:keys [mousedown]} k] (mousedown)))))
@@ -60,9 +60,9 @@
 	)))
 (defn intersects-rounded-rectangle [shape point]
       (comment "should eventually try to detected round corners as well")
-      (if (intersects-rectangle shape point)    
+      (if (intersects-rectangle shape point)
       	  (true)
-	  (false)))  
+	  (false)))
 
 (defn absolute-point-old [stage point]
       (let [{:keys [ref]} (first (filter #(and (= stage (get % :id)) (= "stage" (get % :type))) @shape/entities)) {:keys [x y]} point]
@@ -79,7 +79,7 @@
         clientLeft (.-clientLeft docElement )
         top (- (.-top box) clientTop)
         left (- (.-left box) clientLeft)]
-     {:y (- y (.round js/Math top)) 
+     {:y (- y (.round js/Math top))
        :x  (- x (.round js/Math left))}))
 
 
@@ -90,3 +90,4 @@
 
 (defn get-entity [id]
       (first (filter #(= id (get % :id)) @shape/entities)))
+

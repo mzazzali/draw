@@ -2730,23 +2730,23 @@ cljs.core._hash["boolean"] = function(a) {
 cljs.core.IWithMeta["function"] = !0;
 cljs.core._with_meta["function"] = function(a, b) {
   return cljs.core.with_meta.call(null, function() {
-    if(void 0 === cljs.core.t3877) {
-      cljs.core.t3877 = {};
-      cljs.core.t3877 = function(a, b, c) {
+    if(void 0 === cljs.core.t3020) {
+      cljs.core.t3020 = {};
+      cljs.core.t3020 = function(a, b, c) {
         this.meta = a;
         this.f = b;
-        this.meta3878 = c;
+        this.meta3021 = c;
         this.cljs$lang$protocol_mask$partition1$ = 0;
         this.cljs$lang$protocol_mask$partition0$ = 393217
       };
-      cljs.core.t3877.cljs$lang$type = !0;
-      cljs.core.t3877.cljs$lang$ctorPrSeq = function() {
-        return cljs.core.list.call(null, "cljs.core/t3877")
+      cljs.core.t3020.cljs$lang$type = !0;
+      cljs.core.t3020.cljs$lang$ctorPrSeq = function() {
+        return cljs.core.list.call(null, "cljs.core/t3020")
       };
-      cljs.core.t3877.cljs$lang$ctorPrWriter = function(a, b) {
-        return cljs.core._write.call(null, b, "cljs.core/t3877")
+      cljs.core.t3020.cljs$lang$ctorPrWriter = function(a, b) {
+        return cljs.core._write.call(null, b, "cljs.core/t3020")
       };
-      var c = cljs.core.t3877.prototype, d = function(a, b) {
+      var c = cljs.core.t3020.prototype, d = function(a, b) {
         return cljs.core.apply.call(null, a.f, b)
       }, e = function(a, b) {
         var a = this, c = null;
@@ -2760,19 +2760,19 @@ cljs.core._with_meta["function"] = function(a, b) {
       };
       e.cljs$lang$arity$variadic = d;
       c.call = e;
-      cljs.core.t3877.prototype.apply = function(a, b) {
+      cljs.core.t3020.prototype.apply = function(a, b) {
         a = this;
         return a.call.apply(a, [a].concat(b.slice()))
       };
-      cljs.core.t3877.prototype.cljs$core$Fn$ = !0;
-      cljs.core.t3877.prototype.cljs$core$IMeta$_meta$arity$1 = function() {
-        return this.meta3878
+      cljs.core.t3020.prototype.cljs$core$Fn$ = !0;
+      cljs.core.t3020.prototype.cljs$core$IMeta$_meta$arity$1 = function() {
+        return this.meta3021
       };
-      cljs.core.t3877.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = function(a, b) {
-        return new cljs.core.t3877(this.meta, this.f, b)
+      cljs.core.t3020.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = function(a, b) {
+        return new cljs.core.t3020(this.meta, this.f, b)
       }
     }
-    return new cljs.core.t3877(b, a, null)
+    return new cljs.core.t3020(b, a, null)
   }(), b)
 };
 cljs.core.IMeta["function"] = !0;
@@ -11846,7 +11846,7 @@ cljs.core.atom = function() {
 cljs.core.reset_BANG_ = function(a, b) {
   var c = a.validator;
   if(cljs.core.truth_(c) && !cljs.core.truth_(c.call(null, b))) {
-    throw Error([cljs.core.str("Assert failed: "), cljs.core.str("Validator rejected reference state"), cljs.core.str("\n"), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'validate", "\ufdd1'new-value"), cljs.core.hash_map("\ufdd0'line", 6751))))].join(""));
+    throw Error([cljs.core.str("Assert failed: "), cljs.core.str("Validator rejected reference state"), cljs.core.str("\n"), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'validate", "\ufdd1'new-value"), cljs.core.hash_map("\ufdd0'line", 6751, "\ufdd0'column", 13))))].join(""));
   }
   c = a.state;
   a.state = b;
@@ -12100,11 +12100,8 @@ cljs.core._js__GT_clj._ = function() {
           return cljs.core.seq_QMARK_.call(null, a) ? cljs.core.doall.call(null, cljs.core.map.call(null, g, a)) : cljs.core.coll_QMARK_.call(null, a) ? cljs.core.into.call(null, cljs.core.empty.call(null, a), cljs.core.map.call(null, g, a)) : cljs.core.truth_(goog.isArray(a)) ? cljs.core.vec.call(null, cljs.core.map.call(null, g, a)) : cljs.core.type.call(null, a) === Object ? cljs.core.into.call(null, cljs.core.ObjMap.EMPTY, function j(b) {
             return new cljs.core.LazySeq(null, !1, function() {
               for(;;) {
-                if(cljs.core.seq.call(null, b)) {
-                  var c = cljs.core.first.call(null, b);
-                  return cljs.core.cons.call(null, cljs.core.PersistentVector.fromArray([e.call(null, c), g.call(null, a[c])], !0), j.call(null, cljs.core.rest.call(null, b)))
-                }
-                return null
+                var c = cljs.core.seq.call(null, b);
+                return c ? (c = cljs.core.first.call(null, c), cljs.core.cons.call(null, cljs.core.PersistentVector.fromArray([e.call(null, c), g.call(null, a[c])], !0), j.call(null, cljs.core.rest.call(null, b)))) : null
               }
             }, null)
           }.call(null, cljs.core.js_keys.call(null, a))) : a
@@ -12318,13 +12315,13 @@ cljs.core.descendants = function() {
 cljs.core.derive = function() {
   var a = null, b = function(b, c) {
     if(!cljs.core.truth_(cljs.core.namespace.call(null, c))) {
-      throw Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'namespace", "\ufdd1'parent"), cljs.core.hash_map("\ufdd0'line", 7081))))].join(""));
+      throw Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'namespace", "\ufdd1'parent"), cljs.core.hash_map("\ufdd0'line", 7081, "\ufdd0'column", 12))))].join(""));
     }
     cljs.core.swap_BANG_.call(null, cljs.core.global_hierarchy, a, b, c);
     return null
   }, c = function(a, b, c) {
     if(!cljs.core.not_EQ_.call(null, b, c)) {
-      throw Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'not=", "\ufdd1'tag", "\ufdd1'parent"), cljs.core.hash_map("\ufdd0'line", 7085))))].join(""));
+      throw Error([cljs.core.str("Assert failed: "), cljs.core.str(cljs.core.pr_str.call(null, cljs.core.with_meta(cljs.core.list("\ufdd1'not=", "\ufdd1'tag", "\ufdd1'parent"), cljs.core.hash_map("\ufdd0'line", 7085, "\ufdd0'column", 12))))].join(""));
     }
     var g = (new cljs.core.Keyword("\ufdd0'parents")).call(null, a), h = (new cljs.core.Keyword("\ufdd0'descendants")).call(null, a), i = (new cljs.core.Keyword("\ufdd0'ancestors")).call(null, a), j = function(a, b, c, d, e) {
       return cljs.core.reduce.call(null, function(a, b) {
@@ -12710,26 +12707,26 @@ zee3.draw.shapes.init_config = function(a, b, c) {
 };
 zee3.draw.shapes.rectangle = function(a, b) {
   var c = zee3.draw.shapes.init_config.call(null, "rectangle", zee3.draw.shapes.draw_rectangle, b), d = cljs.core._lookup.call(null, cljs.core.deref.call(null, zee3.draw.shapes.contexts), a, null);
-  zee3.draw.shapes.render.call(null, d, c);
-  return zee3.draw.shapes.base_config.call(null, a, c)
+  return zee3.draw.shapes.render.call(null, d, zee3.draw.shapes.base_config.call(null, a, c))
 };
 zee3.draw.shapes.rounded_rectangle = function(a, b) {
   var c = zee3.draw.shapes.init_config.call(null, "rounded-rectangle", zee3.draw.shapes.draw_rounded_rectangle, b), d = cljs.core._lookup.call(null, cljs.core.deref.call(null, zee3.draw.shapes.contexts), a, null);
-  zee3.draw.shapes.render.call(null, d, c);
-  return zee3.draw.shapes.base_config.call(null, a, c)
+  return zee3.draw.shapes.render.call(null, d, zee3.draw.shapes.base_config.call(null, a, c))
 };
 zee3.draw.shapes.circle = function(a, b) {
   var c = zee3.draw.shapes.init_config.call(null, "circle", zee3.draw.shapes.draw_circle, b), d = cljs.core._lookup.call(null, cljs.core.deref.call(null, zee3.draw.shapes.contexts), a, null);
-  zee3.draw.shapes.render.call(null, d, c);
-  return zee3.draw.shapes.base_config.call(null, a, c)
+  zee3.draw.shapes.base_config.call(null, a, c);
+  return zee3.draw.shapes.render.call(null, d, zee3.draw.shapes.base_config.call(null, a, c))
 };
 zee3.draw.shapes.text = function(a, b) {
   var c = zee3.draw.shapes.init_config.call(null, "text", zee3.draw.shapes.draw_text, b), d = cljs.core._lookup.call(null, cljs.core.deref.call(null, zee3.draw.shapes.contexts), a, null);
-  zee3.draw.shapes.render.call(null, d, c);
-  return zee3.draw.shapes.base_config.call(null, a, c)
+  return zee3.draw.shapes.render.call(null, d, zee3.draw.shapes.base_config.call(null, a, c))
 };
 zee3.draw.shapes.base_config = function(a, b) {
-  return cljs.core.swap_BANG_.call(null, zee3.draw.shapes.entities, cljs.core.conj, cljs.core.assoc.call(null, b, "\ufdd0'stage", a))
+  var c = cljs.core.assoc.call(null, b, "\ufdd0'stage", a);
+  console.log(cljs.core.clj__GT_js.call(null, c));
+  cljs.core.swap_BANG_.call(null, zee3.draw.shapes.entities, cljs.core.conj, c);
+  return c
 };
 zee3.draw.shapes.apply_defaults = function() {
   var a = function(a, b, e) {
@@ -12820,32 +12817,49 @@ zee3.draw.shapes.draw_text = function(a, b) {
   })
 };
 zee3.draw.colormap = {};
+zee3.draw.colormap.build_name = function(a) {
+  return[cljs.core.str(a), cljs.core.str(zee3.draw.defaults.HIT_TEST_STAGE)].join("")
+};
+zee3.draw.colormap.get_by_id = function(a) {
+  return cljs.core.first.call(null, cljs.core.filter.call(null, function(b) {
+    return cljs.core._EQ_.call(null, a, cljs.core._lookup.call(null, b, "\ufdd0'id", null))
+  }, cljs.core.deref.call(null, zee3.draw.shapes.entities)))
+};
+zee3.draw.colormap.get_hit_context = function(a) {
+  a = cljs.core._lookup.call(null, a, "\ufdd0'stage", null);
+  a = zee3.draw.colormap.build_name.call(null, a);
+  return(new cljs.core.Keyword("\ufdd0'context")).call(null, zee3.draw.colormap.get_by_id.call(null, a))
+};
 zee3.draw.colormap.to_hex = function(a) {
-  return cljs.core.format.call(null, "%2x", a)
+  a = a.toString(16);
+  return[cljs.core.str("00".substr(0, 2 - a.length)), cljs.core.str(a)].join("")
 };
 zee3.draw.colormap.color_hash = function() {
   var a = cljs.core.atom.call(null, 0), b = cljs.core.atom.call(null, 0), c = cljs.core.atom.call(null, 0);
   return function() {
     var d = [cljs.core.str("#"), cljs.core.str(zee3.draw.colormap.to_hex.call(null, cljs.core.deref.call(null, a))), cljs.core.str(zee3.draw.colormap.to_hex.call(null, cljs.core.deref.call(null, b))), cljs.core.str(zee3.draw.colormap.to_hex.call(null, cljs.core.deref.call(null, c)))].join("");
     cljs.core.swap_BANG_.call(null, a, cljs.core.inc);
-    255 < cljs.core.deref.call(null, a) && (cljs.core.swap_BANG_.call(null, a, 0), cljs.core.swap_BANG_.call(null, b, cljs.core.inc));
-    255 < cljs.core.deref.call(null, b) && (cljs.core.swap_BANG_.call(null, b, 0), cljs.core.swap_BANG_.call(null, c, cljs.core.inc));
-    255 < cljs.core.deref.call(null, c) && cljs.core.swap_BANG_.call(null, c, 0);
+    255 < cljs.core.deref.call(null, a) && (cljs.core.reset_BANG_.call(null, a, 0), cljs.core.swap_BANG_.call(null, b, cljs.core.inc));
+    255 < cljs.core.deref.call(null, b) && (cljs.core.reset_BANG_.call(null, b, 0), cljs.core.swap_BANG_.call(null, c, cljs.core.inc));
+    255 < cljs.core.deref.call(null, c) && cljs.core.reset_BANG_.call(null, c, 0);
     return d
   }
 };
 zee3.draw.colormap.color_generator = zee3.draw.colormap.color_hash.call(null);
 zee3.draw.colormap.draw_stage = function(a) {
-  var b = cljs.core.seq_QMARK_.call(null, a) ? cljs.core.apply.call(null, cljs.core.hash_map, a) : a, c = cljs.core._lookup.call(null, b, "\ufdd0'height", null), d = cljs.core._lookup.call(null, b, "\ufdd0'width", null), e = cljs.core._lookup.call(null, b, "\ufdd0'id", null), b = document.createElement("canvas"), e = [cljs.core.str(e), cljs.core.str(zee3.draw.colormap.HIT_TEST_STAGE)].join("");
-  b.id = e;
-  b.width = d;
-  b.height = c;
-  c = b.getContext("2d");
-  return cljs.core.swap_BANG_.call(null, zee3.draw.shapes.entities, cljs.core.conj, cljs.core.assoc.call(null, a, "\ufdd0'type", "stage", "\ufdd0'ref", b, "\ufdd0'context", c, "\ufdd0'parent", e))
+  var b = cljs.core.seq_QMARK_.call(null, a) ? cljs.core.apply.call(null, cljs.core.hash_map, a) : a, c = cljs.core._lookup.call(null, b, "\ufdd0'height", null), d = cljs.core._lookup.call(null, b, "\ufdd0'width", null), b = cljs.core._lookup.call(null, b, "\ufdd0'id", null), e = document.createElement("canvas"), f = zee3.draw.colormap.build_name.call(null, b);
+  e.id = f;
+  e.width = d;
+  e.height = c;
+  c = e.getContext("2d");
+  return cljs.core.swap_BANG_.call(null, zee3.draw.shapes.entities, cljs.core.conj, cljs.core.assoc.call(null, a, "\ufdd0'type", "stage", "\ufdd0'ref", e, "\ufdd0'context", c, "\ufdd0'id", f, "\ufdd0'parent", b))
 };
 zee3.draw.colormap.render_shape = function(a, b) {
-  var c = zee3.draw.colormap.color_generator.call(null), c = cljs.core.assoc.call(null, b, "\ufdd0'strokeStyle", c, "\ufdd0'fillStyle", c);
-  return(new cljs.core.Keyword("\ufdd0'renderer")).call(null, b).call(null, a, c)
+  var c = zee3.draw.colormap.color_generator.call(null), c = cljs.core.assoc.call(null, b, "\ufdd0'strokeStyle", c, "\ufdd0'fillStyle", c), d = zee3.draw.colormap.get_hit_context.call(null, b);
+  return(new cljs.core.Keyword("\ufdd0'renderer")).call(null, b).call(null, d, c)
+};
+zee3.draw.colormap.pixel_color = function(a, b, c) {
+  return a.getImageData(b, c, 1, 1)
 };
 zee3.draw.core = {};
 zee3.draw.core.HIT_TEST_STAGE = "hit-test-stage";
@@ -13000,3 +13014,7 @@ zee3.draw.draw_selenium_jstest.setup_rectangle_mousedown = function() {
     return zee3.draw.draw_selenium_jstest.set_output.call(null, "rect-mousedown")
   }}))
 };
+zee3.draw.global = {};
+zee3.draw.global.entities = cljs.core.atom.call(null, cljs.core.PersistentVector.EMPTY);
+zee3.draw.global.contexts = cljs.core.atom.call(null, cljs.core.ObjMap.EMPTY);
+zee3.draw.global.entity_id = cljs.core.atom.call(null, 0);

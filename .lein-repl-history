@@ -260,3 +260,82 @@ exit
     hex-color))))
 (def color-generator [] (color-hash))
 exit
+quit
+(defn to-hex [s]
+  (let [ hex (.toString s 16)]
+    (str (.substr "00" 0, (- 2 (.-length hex))) hex)))
+(defn color-hash [] 
+   (let [r (atom 0) g (atom 0) b (atom 0)]
+      (fn [] 
+         (let [hex-color (str "#" (to-hex @r) (to-hex @g) (to-hex @b))]
+            (swap! r inc)
+    (if (> @r 255) (do (swap! r 0) (swap! g inc)))
+    (if (> @g 255) (do (swap! g 0) (swap! b inc)))
+    (if (> @b 255) (swap! b 0))
+    hex-color))))
+(color-hash)
+(def color-generator (color-hash))
+(color-generator)
+(repeat 251 (cmap/color-generator))
+(color-generator)
+(defn to-hex [s]
+  (let [ hex (.toString s 16)]
+    (str (.substr "00" 0, (- 2 (.-length hex))) hex)))
+(defn color-hash [] 
+   (let [r (atom 0) g (atom 0) b (atom 0)]
+      (fn [] 
+         (let [hex-color (str "#" (to-hex @r) (to-hex @g) (to-hex @b))]
+            (swap! r inc)
+    (if (> @r 255) (do (swap! r 0) (swap! g inc)))
+    (if (> @g 255) (do (swap! g 0) (swap! b inc)))
+    (if (> @b 255) (swap! b 0))
+    hex-color))))
+(def color-generator (color-hash))
+color-generator
+(color-generator)
+(doseq [f [#(prn "x") #(prn "x") #(prn "x")] (f))
+(doseq [f [#(prn "x") #(prn "x") #(prn "x")]] (f))
+(doseq [f (#(prn "x") #(prn "x") #(prn "x"))] (f))
+(let [a (#(prn "x") #(prn "x") #(prn "x"))] (doseq [f a] (f)))
+(#(prn "x") #(prn "x") #(prn "x"))
+#(prn "x") #(prn "x") #(prn "x")
+[#(prn "x") #(prn "x") #(prn "x")]
+(repeatedly 5 #(prn 1))
+(repeatedly 5 (prn 1))
+(repeatedly 5 #((prn 1)))
+(repeatedly 5 #(prn 1))
+#(prn 1)
+(prn 1)
+(repeatedly 5 #(+ 1 1))
+(def m [{:id "test"} {:id "test2"} ])
+(filter #(= "test" (get % :id) m)
+)
+(filter #(= "test" (get % :id)) m)
+(first (filter #(= "test" (get % :id)) m))
+(ns zee3.draw.shapes)
+(def entities (atom []))
+(defn get-by-id 
+  "get the entity by id"
+  [id]
+  (first (filter #(= "id" (get % :id)) @shape/entities)))
+(ns zee3.draw.colormap
+   (:require [zee3.draw.shapes :as shape]))
+(defn get-by-id 
+  "get the entity by id"
+  [id]
+  (first (filter #(= "id" (get % :id)) @shape/entities)))
+(swap! shape/entities (conj {:id "test"}))
+(swap! shape/entities conj {:id "test"})
+(get-by-id "test")
+(filter #(= "test" (get % :id)) @shape/entities))
+(filter #(= "test" (get % :id)) @shape/entities)
+(defn build-name 
+  "append HIT-TEST-STAGE content to stage id"
+  [id]
+  (str id "HH"))
+(defn get-hit-context 
+  "retrieve the hit stage context for the given shape config"
+  [config]
+  (let [stage (get config :stage)
+        hit-stage (build-name stage)]
+    (get-by-id hit-stage))
