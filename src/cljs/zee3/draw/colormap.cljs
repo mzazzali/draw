@@ -2,6 +2,8 @@
    (:require [zee3.draw.shapes :as shape]
              [zee3.draw.defaults :as defaults]))
 
+(def color-map (atom {}))
+
 (defn build-name
   "append HIT-TEST-STAGE content to stage id"
   [id]
@@ -47,12 +49,24 @@
    (let [color (color-generator)
           hit-config (assoc config :strokeStyle color :fillStyle color)
          hit-context (get-hit-context config)]
+      (swap! color-map assoc color config)
       ((:renderer config) hit-context hit-config)))
 
-
+(defn intersects
+  "Tests for intersection using the colormap"
+  [config point]
+  (let [stage (get config :stage)
+        hit-stage (build-name stage)
+        hit-ctx (:context (get-by-id hit-stage))
+        color (pixel-color hit-ctx (:x point) (:y point))
+        color-map-config (get @color-map color)]
+    (= (:id color-map-config) (:id config))))
 
 (defn pixel-color [ctx x y]
-  (.getImageData ctx x y 1 1))
+  (let [d (.-data (.getImageData ctx x y 1 1))]
+    (str "#" (to-hex (aget d 0)) (to-hex (aget d 1)) (to-hex (aget d 2)))))
+
+
 
 
 

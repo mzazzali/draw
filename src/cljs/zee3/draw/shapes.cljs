@@ -18,12 +18,10 @@
 
 (defn rounded-rectangle [stage config]
   (let [mc (init-config "rounded-rectangle" draw-rounded-rectangle config) ctx (get @contexts stage)]
-
     (render ctx (base-config stage mc))))
 
 (defn circle [stage config]
   (let [mc (init-config "circle" draw-circle config) ctx (get @contexts stage) ]
-    (base-config stage mc)
     (render ctx (base-config stage mc))))
 
 (defn text [stage config]
@@ -90,6 +88,8 @@
     (set! (.-font ctx) font)
     (set! (.-textBaseline ctx) textBaseline)
     (.fillText ctx text)))))
+
+
 
 
 

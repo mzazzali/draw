@@ -29,24 +29,23 @@
       (.addEventListener stage "touchmove" handle-mousemove))
 
 (defn handle-mouseup [event]
-      (let [x (.-clientX event) y (.-clientY event)]
-      	(let [k (filter #(and (not= "stage" (get % :type)) (intersects % {:x x :y y}) (contains? % :mouseup)) @shape/entities)]
-		(doseq [{:keys [mouseup]} k] (mouseup)))))
+  (handle-event event :mouseup))
 
 (defn handle-mousemove [event]
-  (let [x (.-clientX event) y (.-clientY event)]
-    (let [k (filter #(and (not= "stage" (get % :type)) (intersects % {:x x :y y}) (contains? % :mousemove)) @shape/entities)]
-		(doseq [{:keys [mousemove]} k] (mousemove)))))
+  (handle-event event :mousemove))
 
 (defn handle-mousedown [event]
-(let [x (.-clientX event) y (.-clientY event)]
-      	(let [k (filter #(and (not= "stage" (get % :type)) (intersects % {:x x :y y}) (contains? % :mousedown)) @shape/entities)]
-		(doseq [{:keys [mousedown]} k] (mousedown)))))
+  (handle-event event :mousedown))
+
+(defn handle-event
+  "Handles all stage events"
+  [event event-type]
+  (let [x (.-clientX event) y (.-clientY event)
+        k (filter #(and (not (nil? (event-type %))) (not= "stage" (get % :type)) (intersects % {:x x :y y}) ) @shape/entities)]
+    (doseq [config k] ((get config event-type)))))
 
 (defn intersects [shape point]
-	(if (= (get shape :type) "circle" )
-		(intersects-circle shape (absolute-point (get shape :stage) point))
-		(intersects-rectangle shape (absolute-point (get shape :stage) point))))
+	(color-map/intersects shape (absolute-point (:stage shape) point)))
 
 (defn intersects-circle [shape point]
 	(let [{:keys [centerX centerY radius]} shape {:keys [x y]} point]
@@ -58,6 +57,7 @@
 	(let [{:keys [x y width height]} shape {mouse-x :x mouse-y :y} point]
 		(and (> mouse-x x) (< mouse-x (+ x width)) (> mouse-y y) (< mouse-y (+ y height))
 	)))
+
 (defn intersects-rounded-rectangle [shape point]
       (comment "should eventually try to detected round corners as well")
       (if (intersects-rectangle shape point)
@@ -90,4 +90,10 @@
 
 (defn get-entity [id]
       (first (filter #(= id (get % :id)) @shape/entities)))
+
+
+
+
+
+
 
