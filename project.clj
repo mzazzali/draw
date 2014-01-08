@@ -4,7 +4,7 @@
   :dependencies [[org.clojure/clojure "1.5.1"]
                  [ring "1.1.8"]
                  [clj-webdriver "0.6.0"]]
-  :plugins [[lein-cljsbuild "0.3.0"]
+  :plugins [[lein-cljsbuild "1.0.1"]
             [lein-ring "0.8.3"]]
   :hooks [leiningen.cljsbuild]
   :source-paths ["src/clj"]
@@ -35,6 +35,8 @@
                  "resources/private/html/unit-test.html"]}
   :main zee3.draw.server
   :ring {:handler zee3.draw.server/app})
+
+
 
 
 

@@ -7,18 +7,6 @@
             (j/it "should be equal"
                   (= 1 1)))
 
-(j/describe "test rectangle intersection"
-            (j/it "should intersect"
-                  (= true (draw/intersects-rectangle {:x 10 :y 10 :width 100 :height 100} {:x 90 :y 90})))
-            (j/it "should not intersect"
-                  (= false (draw/intersects-rectangle {:x 10 :y 10 :width 100 :height 100} {:x 120 :y 120}))))
-
-(j/describe "test circle intersection"
-            (j/it "should intersect"
-                  (= true (draw/intersects-circle {:centerX 30 :centerY 30 :radius 20} {:x 30 :y 30})))
-            (j/it "should not intersect"
-                  (= false (draw/intersects-circle  {:centerX 30 :centerY 30 :radius 20} {:x 120 :y 120}))))
-
 (j/describe "create stage"
             (j/beforeeach (draw/stage {:id "test-stage" :x 0 :y 0 :width 300 :height 300}))
             (j/aftereach (.removeChild
@@ -56,6 +44,8 @@
                            (.removeChild body (.getElementById js/document "test-stage1"))))
             (j/it "test that the circle was created"
                   (not= nil (draw/get-entity "my-circle"))))
+
+
 
 
 

@@ -47,30 +47,6 @@
 (defn intersects [shape point]
 	(color-map/intersects shape (absolute-point (:stage shape) point)))
 
-(defn intersects-circle [shape point]
-	(let [{:keys [centerX centerY radius]} shape {:keys [x y]} point]
-		(let [ distX (- x centerX) distY (- y centerY)]
-		(< (+ (* distX distX) (* distY distY)) (* radius radius))
-	)))
-
-(defn intersects-rectangle [shape point]
-	(let [{:keys [x y width height]} shape {mouse-x :x mouse-y :y} point]
-		(and (> mouse-x x) (< mouse-x (+ x width)) (> mouse-y y) (< mouse-y (+ y height))
-	)))
-
-(defn intersects-rounded-rectangle [shape point]
-      (comment "should eventually try to detected round corners as well")
-      (if (intersects-rectangle shape point)
-      	  (true)
-	  (false)))
-
-(defn absolute-point-old [stage point]
-      (let [{:keys [ref]} (first (filter #(and (= stage (get % :id)) (= "stage" (get % :type))) @shape/entities)) {:keys [x y]} point]
-      	   (loop [obj ref cl 0 ct 0]
-  	   	 (if (.-offsetParent obj)
-    		     (recur (.-offsetParent obj) (+ (.-offsetLeft obj) cl) (+ (.-offsetTop obj) ct))
-		     {:x (- x (.-offsetLeft obj) cl) :y (- y (.-offsetTop obj) ct)}))))
-
 (defn absolute-point [stage point]
   (let [{:keys [ref]} (first (filter #(and (= stage (get % :id)) (= "stage" (get % :type))) @shape/entities))         {:keys [x y]} point
         box (.getBoundingClientRect ref)
