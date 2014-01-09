@@ -81,13 +81,14 @@
 
 
 (defn draw-text [ctx config]
-  (let [{:keys [centerX centerY radius]} mc
-        ctx (get @contexts stage)]
+  (let [{:keys [x y text]} config]
   (draw-base ctx config (fn []
     (set! (.-fillStyle ctx) fillStyle)
     (set! (.-font ctx) font)
     (set! (.-textBaseline ctx) textBaseline)
-    (.fillText ctx text)))))
+    (.fillText ctx text x y)))))
+
+
 
 
 

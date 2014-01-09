@@ -46,6 +46,15 @@
                   (not= nil (draw/get-entity "my-circle"))))
 
 
+(j/describe "create text"
+            (j/beforeeach
+             (draw/stage {:id "test-stage1" :x 0 :y 0 :width 300 :height 300})
+             (shape/text "test-stage1" {:id "my-text" :fillStyle "#FFFFFF" :x 0 :y 0 :font "bold 16px Arial" :text ""}))
+            (j/aftereach (let [body (aget (.getElementsByTagName js/document "body") 0)]
+                           (.removeChild body (.getElementById js/document "test-stage1"))))
+            (j/it "test that the text was created"
+                  (not= nil (draw/get-entity "my-text"))))
+
 
 
 

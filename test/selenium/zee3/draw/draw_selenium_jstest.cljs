@@ -9,31 +9,34 @@
    (setup-circle-mousedown)
    (setup-rectangle-mouseup)
    (setup-rectangle-mousemove)
-   (setup-rectangle-mousedown))
+   (setup-rectangle-mousedown)
+   (setup-text-mouseup)
+   (setup-text-mouseover)
+   (setup-text-mousedown))
 
 (defn set-output [v]
       (set! (.-innerHTML (.getElementById js/document "test_output")) v))
 
 (defn setup-circle-mouseup []
-   (shapes/circle "stage" {:id "crcl-mouseup" 
-                       :centerX 25 
-                       :centerY 25 
+   (shapes/circle "stage" {:id "crcl-mouseup"
+                       :centerX 25
+                       :centerY 25
                        :radius 24
                        :fillStyle "#6611AA"
                        :mouseup (fn[] (set-output "crcl-mouseup"))}))
 
 (defn setup-circle-mousemove []
-   (shapes/circle "stage" {:id "crcl-mousemove" 
-                       :centerX 75 
-                       :centerY 25 
+   (shapes/circle "stage" {:id "crcl-mousemove"
+                       :centerX 75
+                       :centerY 25
                        :radius 24
                        :fillStyle "#6622BB"
                        :mousemove (fn[] (set-output "crcl-mousemove"))}))
 
 (defn setup-circle-mousedown []
-   (shapes/circle "stage" {:id "crcl-mousedown" 
-                       :centerX 125 
-                       :centerY 25 
+   (shapes/circle "stage" {:id "crcl-mousedown"
+                       :centerX 125
+                       :centerY 25
                        :radius 24
                        :fillStyle "#6633CC"
                        :mousedown (fn[] (set-output "crcl-mousedown"))}))
@@ -64,3 +67,26 @@
                                  :height 49
                                  :fillStyle "#6666FF"
                                  :mousedown (fn[] (set-output "rect-mousedown"))}))
+
+(defn setup-text-mouseup []
+      (shapes/rectangle "stage" {:id "text-mouseup"
+                                 :x 0
+                                 :y 100
+                                 :font "bold 49px Arial"
+                                 :fillStyle "#6666FF"
+                                 :mousedown (fn[] (set-output "text-mouseup"))}))
+
+(defn setup-text-mouseover []
+      (shapes/rectangle "stage" {:id "text-mouseover"
+                                 :x 50
+                                 :y 100
+                                 :font "bold 49px Arial"
+                                 :fillStyle "#6666FF"
+                                 :mousedown (fn[] (set-output "text-mouseover"))}))
+(defn setup-text-mousedown []
+      (shapes/rectangle "stage" {:id "text-mousedown"
+                                 :x 100
+                                 :y 100
+                                 :font "bold 49px Arial"
+                                 :fillStyle "#6666FF"
+                                 :mousedown (fn[] (set-output "text-mousedownp"))}))

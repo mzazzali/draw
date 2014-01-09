@@ -2,4 +2,6 @@
 
 (def entities (atom []))
 (def contexts (atom {}))
-(def entity-id (atom 0))
+(def entity-id (atom 0))
+
+

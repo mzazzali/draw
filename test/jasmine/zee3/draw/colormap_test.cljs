@@ -29,11 +29,11 @@
 
 (j/describe "test color-generator"
              (j/it "retrieve unique color hash"
-                   (= "#030000" (cmap/color-generator)))
-             (j/it "retrieve next unique color hash"
                    (= "#040000" (cmap/color-generator)))
+             (j/it "retrieve next unique color hash"
+                   (= "#050000" (cmap/color-generator)))
              (j/it "retrieve first green color hash"
-                   (= "#000100" (last (repeatedly 252 #(cmap/color-generator)))))
+                   (= "#000100" (last (repeatedly 251 #(cmap/color-generator)))))
              (j/it "retrieve first blue color hash"
                    (= "#000001" (last (repeatedly (+ 255 (* 255 255)) #(cmap/color-generator))))))
 
@@ -46,5 +46,7 @@
           (= "stage" (get stage :type)))
     (j/it "Check it has a reference to the dom element"
           (not (nil? (get stage :ref))))))
+
+
 
 
