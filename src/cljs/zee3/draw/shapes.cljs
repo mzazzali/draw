@@ -51,9 +51,11 @@
       (set! (.-strokeStyle ctx) strokeStyle)
       (set! (.-lineWidth ctx) lineWidth)
       (f ctx config)
-      (.fill ctx)
-      (.stroke ctx))
-   (doseq [f (:base-init zee3.draw.defaults/cfg)] (f config)))
+      (cond (not= "text" (:type config))
+        (do
+          (.fill ctx)
+          (.stroke ctx)))
+   (doseq [f (:base-init zee3.draw.defaults/cfg)] (f config))))
 
 
 (defn draw-rectangle [ctx config]
@@ -81,7 +83,7 @@
 
 
 (defn draw-text [ctx config]
-  (let [{:keys [x y text]} config]
+  (let [{:keys [x y text font]} config]
   (draw-base ctx config (fn []
     (set! (.-fillStyle ctx) fillStyle)
     (set! (.-font ctx) font)
@@ -95,4 +97,5 @@
 
 
 
-
+
+

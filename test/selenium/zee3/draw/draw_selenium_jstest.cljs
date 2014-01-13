@@ -11,7 +11,7 @@
    (setup-rectangle-mousemove)
    (setup-rectangle-mousedown)
    (setup-text-mouseup)
-   (setup-text-mouseover)
+   (setup-text-mousemove)
    (setup-text-mousedown))
 
 (defn set-output [v]
@@ -69,24 +69,28 @@
                                  :mousedown (fn[] (set-output "rect-mousedown"))}))
 
 (defn setup-text-mouseup []
-      (shapes/rectangle "stage" {:id "text-mouseup"
+      (shapes/text "stage" {:id "text-mouseup"
+                                 :text "T"
                                  :x 0
-                                 :y 100
+                                 :y 150
                                  :font "bold 49px Arial"
                                  :fillStyle "#6666FF"
-                                 :mousedown (fn[] (set-output "text-mouseup"))}))
+                                 :mouseup (fn[] (set-output "text-mouseup"))}))
 
-(defn setup-text-mouseover []
-      (shapes/rectangle "stage" {:id "text-mouseover"
+(defn setup-text-mousemove []
+      (shapes/text "stage" {:id "text-mousemove"
+                                 :text "T"
                                  :x 50
-                                 :y 100
+                                 :y 150
                                  :font "bold 49px Arial"
                                  :fillStyle "#6666FF"
-                                 :mousedown (fn[] (set-output "text-mouseover"))}))
+                                 :mousemove (fn[] (set-output "text-mousemove"))}))
 (defn setup-text-mousedown []
-      (shapes/rectangle "stage" {:id "text-mousedown"
+      (shapes/text "stage" {:id "text-mousedown"
+                                 :text "T"
                                  :x 100
-                                 :y 100
+                                 :y 150
                                  :font "bold 49px Arial"
                                  :fillStyle "#6666FF"
-                                 :mousedown (fn[] (set-output "text-mousedownp"))}))
+                                 :mousedown (fn[] (set-output "text-mousedownp"))}))
+

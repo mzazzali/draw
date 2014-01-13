@@ -26,11 +26,11 @@
     (str (.substr "00" 0, (- 2 (.-length hex))) hex)))
 
 (defn color-hash []
-   (let [r (atom 0) g (atom 0) b (atom 0)]
+   (let [r (atom 1) g (atom 0) b (atom 0)]
       (fn []
          (let [hex-color (str "#" (to-hex @r) (to-hex @g) (to-hex @b))]
             (swap! r inc)
-		    (if (> @r 255) (do (reset! r 0) (swap! g inc)))
+		    (if (> @r 255) (do (reset! r 1) (swap! g inc)))
 		    (if (> @g 255) (do (reset! g 0) (swap! b inc)))
 		    (if (> @b 255) (reset! b 0))
 		    hex-color))))
@@ -60,7 +60,12 @@
         hit-ctx (:context (get-by-id hit-stage))
         color (pixel-color hit-ctx (:x point) (:y point))
         color-map-config (get @color-map color)]
-    (= (:id color-map-config) (:id config))))
+
+    (if (= (:id color-map-config) (:id config))
+      (do
+        (.log js/console (str "hit-color:" color ))
+        true)
+      false)))
 
 (defn pixel-color [ctx x y]
   (let [d (.-data (.getImageData ctx x y 1 1))]
@@ -71,4 +76,5 @@
 
 
 
-
+
+
