@@ -72,7 +72,7 @@
       (shapes/text "stage" {:id "text-mouseup"
                                  :text "T"
                                  :x 0
-                                 :y 150
+                                 :y 140
                                  :font "bold 49px Arial"
                                  :fillStyle "#6666FF"
                                  :mouseup (fn[] (set-output "text-mouseup"))}))
@@ -81,7 +81,7 @@
       (shapes/text "stage" {:id "text-mousemove"
                                  :text "T"
                                  :x 50
-                                 :y 150
+                                 :y 140
                                  :font "bold 49px Arial"
                                  :fillStyle "#6666FF"
                                  :mousemove (fn[] (set-output "text-mousemove"))}))
@@ -89,8 +89,8 @@
       (shapes/text "stage" {:id "text-mousedown"
                                  :text "T"
                                  :x 100
-                                 :y 150
+                                 :y 140
                                  :font "bold 49px Arial"
                                  :fillStyle "#6666FF"
-                                 :mousedown (fn[] (set-output "text-mousedownp"))}))
+                                 :mousedown (fn[] (set-output "text-mousedown"))}))
 

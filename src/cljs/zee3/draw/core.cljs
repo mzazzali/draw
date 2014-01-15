@@ -40,9 +40,7 @@
 (defn handle-event
   "Handles all stage events"
   [event event-type]
-  (let [x (.-clientX event) y (.-clientY event)
-        k (filter #(and (not (nil? (event-type %))) (not= "stage" (get % :type)) (intersects % {:x x :y y}) ) @shape/entities)]
-    (doseq [config k] ((get config event-type)))))
+  (color-map/handle-event event event-type))
 
 (defn intersects [shape point]
 	(color-map/intersects shape (absolute-point (:stage shape) point)))
@@ -72,4 +70,5 @@
 
 
 
-
+
+
