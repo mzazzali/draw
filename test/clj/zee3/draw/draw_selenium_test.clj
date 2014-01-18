@@ -91,20 +91,20 @@
 
 (deftest text-mouseup
    (let [act (:actions *driver*)]
-      (.moveToElement act (:webelement (element {:tag :canvas})) 36 120)
+      (.moveToElement act (:webelement (element {:tag :canvas})) 15 110)
       (.click act)
       (.perform act))
    (is (= (test-output) "text-mouseup")))
 
 (deftest text-mousemove
    (let [act (:actions *driver*)]
-      (.moveToElement act (:webelement (element {:tag :canvas})) 76 110)
+      (.moveToElement act (:webelement (element {:tag :canvas})) 56 110)
       (.perform act))
    (is (= (test-output) "text-mousemove")))
 
 (deftest text-mousedown
    (let [act (:actions *driver*)]
-      (.moveToElement act (:webelement (element {:tag :canvas})) 116 130)
+      (.moveToElement act (:webelement (element {:tag :canvas})) 106 110)
       (.click act)
       (.perform act))
    (is (= (test-output) "text-mousedown")))
