@@ -15,10 +15,6 @@
             (j/it "test that we can retrieve an entity by id"
                   (not (nil? (cmap/get-by-id STAGE-NAME))))))
 
-(j/describe "test"
-             (j/it "retrieve first green color hash"
-                   (= 2 (last (repeatedly  255 #(+ 1 1))))))
-
 (j/describe "test to-hex"
              (j/it "test convert 1 to hex"
                    (= "01" (cmap/to-hex 1)))
@@ -27,13 +23,22 @@
             (j/it "test convert 28 to hex"
                    (= "1c" (cmap/to-hex 28))))
 
+
+(j/describe "test from-hex"
+             (j/it "convert #FFFFFF to decimal"
+                   (= [255 255 255] (cmap/from-hex "#FFFFFF")))
+             (j/it "convert #000000 to decimal"
+                   (= [0 0 0] (cmap/from-hex "#000000")))
+             (j/it "convert #090909 to decimal"
+                   (= [9 9 9] (cmap/from-hex "#090909"))))
+
 (j/describe "test color-generator"
              (j/it "retrieve unique color hash"
-                   (= "#040000" (cmap/color-generator)))
-             (j/it "retrieve next unique color hash"
                    (= "#050000" (cmap/color-generator)))
+             (j/it "retrieve next unique color hash"
+                   (= "#060000" (cmap/color-generator)))
              (j/it "retrieve first green color hash"
-                   (= "#000100" (last (repeatedly 251 #(cmap/color-generator)))))
+                   (= "#000100" (last (repeatedly 250 #(cmap/color-generator)))))
              (j/it "retrieve first blue color hash"
                    (= "#000001" (last (repeatedly (+ 255 (* 255 255)) #(cmap/color-generator))))))
 
@@ -47,6 +52,9 @@
     (j/it "Check it has a reference to the dom element"
           (not (nil? (get stage :ref))))))
 
+(j/describe "test transpose-text"
+             (j/it "test that the transpose function transposes"
+                   (=
+                    (vector 100 100 100 255)
+                    (js->clj (cmap/transpose-text (array 5 5 5 5) (array 3 4 5 6) [100 100 100])))))
 
-
-

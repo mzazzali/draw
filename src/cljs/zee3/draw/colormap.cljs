@@ -34,7 +34,7 @@
       (fn []
          (let [hex-color (str "#" (to-hex @r) (to-hex @g) (to-hex @b))]
             (swap! r inc)
-		    (if (> @r 255) (do (reset! r 1) (swap! g inc)))
+		    (if (> @r 255) (do (swap! g inc) (if (> @g 0) (reset! r 0) (reset! r 1))))
 		    (if (> @g 255) (do (reset! g 0) (swap! b inc)))
 		    (if (> @b 255) (reset! b 0))
 		    hex-color))))
@@ -108,21 +108,6 @@
            :else
           ((:renderer config) hit-context hit-config))))
 
-(defn intersects
-  "Tests for intersection using the colormap"
-  [config point]
-  (let [stage (get config :stage)
-        hit-stage (build-name stage)
-        hit-ctx (:context (get-by-id hit-stage))
-        color (pixel-color hit-ctx (:x point) (:y point))
-        color-map-config (get @color-map color)]
-
-    (if (= (:id color-map-config) (:id config))
-      (do
-        (.log js/console (str "hit-color:" color ))
-        true)
-      false)))
-
 (defn absolute-point [stage point]
   (let [{:keys [ref]} (first (filter #(and (= stage (get % :id)) (= "stage" (get % :type))) @shape/entities))         {:keys [x y]} point
         box (.getBoundingClientRect ref)
@@ -144,11 +129,6 @@
         hit-ctx (:context (get-by-id hit-stage))
         color (pixel-color hit-ctx x y)
         color-map-config (get @color-map color)]
-    (cond (= event-type :mouseup)
-          (do (.log js/console (str ":mousemove"))
-            (.log js/console (str "color:" color))
-            (.log js/console (str "alpha:" (.-globalAlpha hit-ctx)))
-            (.log js/console (str "x:" x " y:" y))))
     (cond (not(nil? color-map-config))
           (let [f (get color-map-config event-type)]
             (cond (not (nil? f))
