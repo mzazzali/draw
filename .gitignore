@@ -6,3 +6,4 @@
 .lein-failures
 *jasmine-test*
 *selenium-test*
+/resources/private/
